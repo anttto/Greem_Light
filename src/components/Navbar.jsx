@@ -34,7 +34,7 @@ export default function Gnb() {
             <Link to="/cart"><SlBasket/></Link>       
             <Link to="/products/new"><BsFillPencilFill/></Link>
             
-            {/* {user && user.displayName} */}
+            {user && <img src={user.photoURL} referrerPolicy='no-referrer'/>}
             {!user && <button onClick={handleLogin}>Login</button>}
             {user && <button onClick={handleLogout}>Logout</button>}
         </nav>

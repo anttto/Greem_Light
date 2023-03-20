@@ -16,7 +16,6 @@ export async function login(){
   return signInWithPopup(auth, provider)
   .then((result) => {
     const user = result.user;
-    // console.log(user);
     return user;
   })
   .catch((error) => {
