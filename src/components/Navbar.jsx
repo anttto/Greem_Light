@@ -4,6 +4,7 @@ import { AiOutlineShop } from 'react-icons/ai';
 import { SlBasket } from 'react-icons/sl';
 import { BsFillPencilFill } from 'react-icons/bs';
 import { login, logout, onUserStateChange } from '../api/firebase';
+import User from './User';
 
 
 export default function Gnb() {
@@ -11,6 +12,7 @@ export default function Gnb() {
 
   useEffect(()=>{
     onUserStateChange((user)=>{
+      console.log(user);
       setUser(user);
     });
   }, []);
@@ -22,7 +24,7 @@ export default function Gnb() {
     logout().then(user=>setUser(user));
   }
   return (
-    <header className='flex justify-between border-b border-gray-300'>
+    <header className='flex justify-between border-b border-gray-300 py-2 px-4'>
         <h1>
             <Link to="/" className='flex items-center justify-start text-4xl text-brand'>
                 <AiOutlineShop/>
@@ -34,7 +36,7 @@ export default function Gnb() {
             <Link to="/cart"><SlBasket/></Link>       
             <Link to="/products/new"><BsFillPencilFill/></Link>
             
-            {user && <img src={user.photoURL} referrerPolicy='no-referrer'/>}
+            {user && <User user={user}/>} 
             {!user && <button onClick={handleLogin}>Login</button>}
             {user && <button onClick={handleLogout}>Logout</button>}
         </nav>

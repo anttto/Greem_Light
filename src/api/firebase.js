@@ -14,8 +14,8 @@ const provider = new GoogleAuthProvider();
 
 export async function login(){
   return signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
+  .then((data) => {
+    const user = data.user;
     return user;
   })
   .catch((error) => {
