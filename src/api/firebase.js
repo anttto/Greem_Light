@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getDatabase, ref, onValue, get, child } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
@@ -11,11 +12,28 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
+const dbRef = ref(getDatabase());
+
+export async function getData() {
+  return get(child(dbRef, `admins`))
+  .then((snapshot) => {
+    if (snapshot.exists()) {
+      const userId = snapshot.val();
+      return userId;
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+
 
 export async function login(){
   return signInWithPopup(auth, provider)
   .then((result) => {
     const user = result.user;
+    console.log(user);
     return user;
   })
   .catch((error) => {
@@ -32,4 +50,3 @@ export function onUserStateChange(callback){
     callback(user);
   });
 }
-
