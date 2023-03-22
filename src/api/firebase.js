@@ -31,9 +31,14 @@ export async function getData() {
 
 export async function login(){
   return signInWithPopup(auth, provider)
+<<<<<<< HEAD
   .then((result) => {
     const user = result.user;
     console.log(user);
+=======
+  .then((data) => {
+    const user = data.user;
+>>>>>>> 5acc4fb1ba4c5632919fba5c0f9a0a23742a4813
     return user;
   })
   .catch((error) => {
