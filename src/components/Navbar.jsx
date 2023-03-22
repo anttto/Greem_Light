@@ -12,9 +12,7 @@ export default function Gnb() {
 
   useEffect(()=>{
     onUserStateChange((user)=>{
-      console.log(user);
       setUser(user);
-
       if (user) {
         getData().then((userId)=>{
           setAdminId(userId.id);
@@ -32,7 +30,7 @@ export default function Gnb() {
     logout().then(user=>setUser(user));
   }
   return (
-    <header className='flex justify-between border-b border-gray-300 items-center'>
+    <header className='flex justify-between border-b border-gray-300 items-center py-2 px-2'>
         <h1>
             <Link to="/" className='flex items-center justify-start text-4xl text-brand'>
                 <AiOutlineShop/>
@@ -41,10 +39,11 @@ export default function Gnb() {
         </h1>
         <nav className='flex justify-start items-center gap-4 font-semibold'>
             <Link to="/products">Products</Link>
-            {user && user.uid === adminId ? <div><Link to="/cart"><SlBasket/></Link><Link to="/products/new"><BsFillPencilFill/></Link></div> : null}
+            {user && <Link to="/cart"><SlBasket/></Link>} 
+            {user && user.uid === adminId ? <Link to="/products/new"><BsFillPencilFill/></Link> : null}
             {user && <User user={user}/>} 
-            {!user && <button onClick={handleLogin} className='p-4 bg-orange-500'>Login</button>}
-            {user && <button onClick={handleLogout}>Logout</button>}
+            {!user && <button onClick={handleLogin} className='px-4 py-2 bg-orange-500 text-white rounded-full'>Login</button>}
+            {user && <button onClick={handleLogout} className='px-4 py-2 bg-gray-400 text-white rounded-full'>Logout</button>}
         </nav>
     </header>
   );
