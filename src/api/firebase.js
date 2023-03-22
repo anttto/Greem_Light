@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, onValue, get, child } from "firebase/database";
+import { getDatabase, ref, get } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
@@ -12,21 +12,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 const provider = new GoogleAuthProvider();
-const dbRef = ref(getDatabase());
-
-export async function getData() {
-  return get(child(dbRef, `admins`))
-  .then((snapshot) => {
-    if (snapshot.exists()) {
-      const userId = snapshot.val();
-      return userId;
-    } else {
-      console.log("No data available");
-    }
-  }).catch((error) => {
-    console.error(error);
-  });
-}
+const database = getDatabase(app);
 
 
 export async function login(){
@@ -45,7 +31,24 @@ export async function logout(){
 }
 
 export function onUserStateChange(callback){
-  onAuthStateChanged(auth, (user) => {
-    callback(user);
+  onAuthStateChanged(auth, async (user) => {
+    const updatedUser = user ? await adminUser(user) : null;
+    callback(updatedUser);
   });
 }
+
+async function adminUser(user) {
+  return get(ref(database, `admins`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const admins = snapshot.val();
+        const isAdmin = admins.includes(user.uid);
+        return {...user, isAdmin:isAdmin}
+      } else {
+        return user;
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+}
+

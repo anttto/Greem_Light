@@ -3,17 +3,21 @@ import { Link } from 'react-router-dom';
 import { AiOutlineShop } from 'react-icons/ai';
 import { SlBasket } from 'react-icons/sl';
 import { BsFillPencilFill } from 'react-icons/bs';
-import { login, logout, onUserStateChange } from '../api/firebase';
+import { getData, login, logout, onUserStateChange } from '../api/firebase';
 import User from './User';
-import Button from './ui/Button';
 
 export default function Gnb() {
   const [user, setUser] = useState(null);
+  const [adminId, setAdminId] = useState(null);
 
   useEffect(()=>{
     onUserStateChange((user)=>{
-      console.log(user);
       setUser(user);
+      if (user) {
+        getData().then((userId)=>{
+          setAdminId(userId.id);
+        });
+      }
     });
   }, []);
 
@@ -22,11 +26,9 @@ export default function Gnb() {
       return setUser(user);
     });
   }
-
   const handleLogout =() =>{
     logout().then(user=>setUser(user));
   }
-
   return (
     <header className='flex justify-between border-b border-gray-300 items-center py-2 px-2'>
         <h1>
@@ -38,10 +40,10 @@ export default function Gnb() {
         <nav className='flex justify-start items-center gap-4 font-semibold'>
             <Link to="/products">Products</Link>
             {user && <Link to="/cart"><SlBasket/></Link>} 
-            {user && user.isAdmin === true && <Link to="/products/new"><BsFillPencilFill/></Link>}
-            {user && <User user={user}/>}
-            {!user && <Button text={'Login'} onClick={handleLogin}></Button>}
-            {user && <Button text={'Logout'} onClick={handleLogout}></Button>}
+            {user && user.uid === adminId ? <Link to="/products/new"><BsFillPencilFill/></Link> : null}
+            {user && <User user={user}/>} 
+            {!user && <button onClick={handleLogin} className='px-4 py-2 bg-orange-500 text-white rounded-full'>Login</button>}
+            {user && <button onClick={handleLogout} className='px-4 py-2 bg-gray-400 text-white rounded-full'>Logout</button>}
         </nav>
     </header>
   );
