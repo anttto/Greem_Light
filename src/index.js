@@ -11,6 +11,7 @@ import NotFound from './pages/NotFound';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
 import NewProducts from './pages/NewProducts';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 const router = createBrowserRouter([
   {
@@ -20,9 +21,15 @@ const router = createBrowserRouter([
     children: [
       {index:true, element:<Home/>},
       {path:'/products', element:<AllProducts/>},
-      {path:'/products/new', element:<NewProducts/>},
+      {path:'/products/new', element:
+        <ProtectedRoute requireAdmin={true}>
+          <NewProducts/>
+        </ProtectedRoute>},
       {path:'/products/:id', element:<ProductDetail/>},
-      {path:'/cart', element:<Cart/>},
+      {path:'/cart', element:
+        <ProtectedRoute>
+          <Cart/>
+        </ProtectedRoute>},
     ]
   }
 ]);
