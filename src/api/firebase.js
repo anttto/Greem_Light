@@ -1,6 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get } from "firebase/database";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -14,26 +20,26 @@ const auth = getAuth();
 const provider = new GoogleAuthProvider();
 const database = getDatabase(app);
 
-
-export async function login(){
+export async function login() {
   return signInWithPopup(auth, provider)
-  .then((result) => {
-    const user = result.user;
-    return user;
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+    .then((result) => {
+      const user = result.user;
+      return user;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 }
 
-export async function logout(){
+export async function logout() {
   return signOut(auth).then(() => null);
 }
 
-export function onUserStateChange(callback){
+export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
     const updatedUser = user ? await adminUser(user) : null;
     callback(updatedUser);
+    console.log("2");
   });
 }
 
@@ -43,12 +49,12 @@ async function adminUser(user) {
       if (snapshot.exists()) {
         const admins = snapshot.val();
         const isAdmin = admins.includes(user.uid);
-        return {...user, isAdmin:isAdmin}
+        return { ...user, isAdmin: isAdmin };
       } else {
         return user;
       }
-    }).catch((error) => {
+    })
+    .catch((error) => {
       console.error(error);
     });
 }
-

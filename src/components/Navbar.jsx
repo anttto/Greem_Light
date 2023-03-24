@@ -9,25 +9,9 @@ import Button from './ui/Button';
 import { useAuthContext } from './context/AuthContext';
 
 export default function Gnb() {
-  // const [user, setUser] = useState(null);
-
-  // useEffect(()=>{
-  //   onUserStateChange((user)=>{
-  //     console.log(user);
-  //     setUser(user);
-  //   });
-  // }, []);
-
-  // const handleLogin =() =>{
-  //   login().then(user=>{
-  //     return setUser(user);
-  //   });
-  // }
-
-  // const handleLogout =() =>{
-  //   logout().then(user=>setUser(user));
-  // }
+  
   const {user, handleLogin, handleLogout} = useAuthContext();
+  
   return (
     <header className='flex justify-between border-b border-gray-300 items-center py-2 px-2'>
         <Link to="/" className='flex items-center justify-start text-4xl text-brand'>
