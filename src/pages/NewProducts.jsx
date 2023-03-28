@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { addNewProduct } from "../api/firebase";
 import { uploadImage } from "../api/uploader";
 import Button from "../components/ui/Button";
@@ -9,6 +10,7 @@ export default function NewProducts() {
   const [file, setFiles] = useState();
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -32,7 +34,10 @@ export default function NewProducts() {
           }, 3000);
         });
       })
-      .finally(() => setIsUploading(false));
+      .finally(() => {
+        setIsUploading(false);
+        navigate("/");
+      });
   };
 
   return (

@@ -1,12 +1,12 @@
-import React from 'react';
-import Banner from '../components/Banner';
-import AllProducts from '../components/AllProducts';
+import React from "react";
+import Banner from "../components/Banner";
+import Products from "../components/Products";
 
 export default function Basket() {
   return (
-    <>
-      <Banner/>
-      <AllProducts/>
-    </>
+    <div className="py-6">
+      <Banner />
+      <Products />
+    </div>
   );
 }

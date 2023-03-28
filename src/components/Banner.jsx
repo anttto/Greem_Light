@@ -1,9 +1,13 @@
-import React from 'react';
+import React from "react";
 
 export default function Banner() {
   return (
-    <>
-      <p>Banner</p>
-    </>
+    <section>
+      <ul>
+        <li>Banner</li>
+        <li>Banner</li>
+        <li>Banner</li>
+      </ul>
+    </section>
   );
 }
