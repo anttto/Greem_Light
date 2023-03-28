@@ -1,12 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get } from "firebase/database";
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { getDatabase, ref, get, set } from "firebase/database";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -39,7 +34,6 @@ export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
     const updatedUser = user ? await adminUser(user) : null;
     callback(updatedUser);
-    console.log("2");
   });
 }
 
@@ -57,4 +51,19 @@ async function adminUser(user) {
     .catch((error) => {
       console.error(error);
     });
+}
+
+export async function addNewProduct(product, imageUrl) {
+  const id = uuid();
+  return set(ref(database, `products/${id}`), {
+    ...product,
+    id: id,
+    price: parseInt(product.price),
+    url: imageUrl,
+    options: product.options.split(","),
+    type: product.type,
+    title: product.title,
+    category: product.category,
+    description: product.description,
+  });
 }

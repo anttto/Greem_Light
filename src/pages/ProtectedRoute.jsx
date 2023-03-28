@@ -6,6 +6,8 @@ export default function ProtectedRoute({children, requireAdmin}) {
   const {user} = useAuthContext();
 
   if(!user || (requireAdmin && !user.isAdmin) ) {
-    <Navigate to='/' replace ></Navigate>
+    return <Navigate to='/' replace ></Navigate>
   }
+
+  return children;
 }

@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       {index:true, element:<Home/>},
       {path:'/products', element:<AllProducts/>},
       {path:'/products/new', element:
-        <ProtectedRoute requireAdmin={true}>
+        <ProtectedRoute requireAdmie={true}>
           <NewProducts/>
         </ProtectedRoute>},
       {path:'/products/:id', element:<ProductDetail/>},
