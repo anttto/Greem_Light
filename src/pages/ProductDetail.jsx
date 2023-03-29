@@ -12,7 +12,7 @@ export default function ProductDetail() {
   const [selected, setSelected] = useState(options && options[0]);
   const handleSelect = (e) => setSelected(e.target.value);
   const handleClick = () => {
-    //아아아아
+    //code..
   };
   return (
     <section className="p-5 flex flex-col">
