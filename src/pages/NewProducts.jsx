@@ -1,8 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { addNewProduct } from "../api/firebase";
+import { addNewArtwork } from "../api/firebase";
 import { uploadImage } from "../api/uploader";
+import { useAuthContext } from "../components/context/AuthContext";
 import Button from "../components/ui/Button";
 
 export default function NewProducts() {
@@ -11,6 +12,7 @@ export default function NewProducts() {
   const [isUploading, setIsUploading] = useState(false);
   const [success, setSuccess] = useState();
   const navigate = useNavigate();
+  const { uid } = useAuthContext();
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -27,7 +29,7 @@ export default function NewProducts() {
     setIsUploading(true);
     uploadImage(file)
       .then((url) => {
-        addNewProduct(product, url).then(() => {
+        addNewArtwork(uid, product, url).then(() => {
           setSuccess("업로드가 완료 되었습니다.");
           setTimeout(() => {
             setSuccess(null);
@@ -36,7 +38,7 @@ export default function NewProducts() {
       })
       .finally(() => {
         setIsUploading(false);
-        navigate("/");
+        navigate("/artwork");
       });
   };
 
@@ -48,10 +50,10 @@ export default function NewProducts() {
       <form onSubmit={handleSubmit} className="flex flex-col px-12">
         <input onChange={handleChange} name="file" className="w-full" type="file" accept="image/*" required placeholder="제품명" />
         <input name="title" value={product.title ?? ""} className="w-full" type="text" required placeholder="제품명" onChange={handleChange} />
-        <input name="price" value={product.price ?? ""} className="w-full" type="number" required placeholder="가격" onChange={handleChange} />
-        <input name="category" value={product.category ?? ""} className="w-full" type="text" required placeholder="카테고리" onChange={handleChange} />
         <input name="description" value={product.description ?? ""} className="w-full" type="text" required placeholder="제품 설명" onChange={handleChange} />
-        <input name="options" value={product.options ?? ""} className="w-full" type="text" placeholder="옵션 (콤마(,)로 구분)" onChange={handleChange} />
+        {/* <input name="price" value={product.price ?? ""} className="w-full" type="number" required placeholder="가격" onChange={handleChange} /> */}
+        {/* <input name="category" value={product.category ?? ""} className="w-full" type="text" required placeholder="카테고리" onChange={handleChange} /> */}
+        {/* <input name="options" value={product.options ?? ""} className="w-full" type="text" placeholder="옵션 (콤마(,)로 구분)" onChange={handleChange} /> */}
         <select name="type" value="" onChange={handleChange}>
           <option value="cate">타입</option>
           <option key="type1" value="character">

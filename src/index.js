@@ -5,13 +5,14 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import Home from "./pages/Home";
-import AllProducts from "./pages/AllProducts";
-
+import MyArtwork from "./pages/MyArtwork";
+// import AllProducts from "./pages/AllProducts";
 import NotFound from "./pages/NotFound";
 import ProductDetail from "./pages/ProductDetail";
-import Cart from "./pages/Cart";
+//import Cart from "./pages/Cart";
+import Liked from "./pages/Liked";
 import NewProducts from "./pages/NewProducts";
-import ProtectedRoute from "./pages/ProtectedRoute";
+// import ProtectedRoute from "./pages/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
@@ -20,22 +21,22 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
-      { path: "/products", element: <AllProducts /> },
+      { path: "/artwork", element: <MyArtwork /> },
       {
         path: "/products/new",
         element: (
-          <ProtectedRoute requireAdmie={true}>
-            <NewProducts />
-          </ProtectedRoute>
+          // <ProtectedRoute requireAdmie={true}>
+          <NewProducts />
+          // </ProtectedRoute>
         ),
       },
       { path: "/products/:id", element: <ProductDetail /> },
       {
-        path: "/cart",
+        path: "/liked",
         element: (
-          <ProtectedRoute>
-            <Cart />
-          </ProtectedRoute>
+          // <ProtectedRoute>
+          <Liked />
+          // </ProtectedRoute>
         ),
       },
     ],
@@ -49,7 +50,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

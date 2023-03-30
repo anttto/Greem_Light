@@ -1,12 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, set } from "firebase/database";
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { getDatabase, ref, get, set, remove } from "firebase/database";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
@@ -59,22 +53,88 @@ async function adminUser(user) {
     });
 }
 
-export async function addNewProduct(product, imageUrl) {
-  const id = uuid();
-  return set(ref(database, `products/${id}`), {
-    ...product,
-    id: id,
-    price: parseInt(product.price),
-    url: imageUrl,
-    options: product.options.split(","),
-    type: product.type,
-    title: product.title,
-    category: product.category,
-    description: product.description,
+// export async function addNewProduct(product, imageUrl) {
+//   const id = uuid();
+//   return set(ref(database, `products/${id}`), {
+//     ...product,
+//     id: id,
+//     price: parseInt(product.price),
+//     url: imageUrl,
+//     options: product.options.split(","),
+//     type: product.type,
+//     title: product.title,
+//     category: product.category,
+//     description: product.description,
+//   });
+// }
+
+// export async function getProducts() {
+//   return get(ref(database, `products`))
+//     .then((snapshot) => {
+//       if (snapshot.exists()) {
+//         return Object.values(snapshot.val());
+//       }
+//       return [];
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// }
+
+//좋아요 목록 읽기
+export async function getLiked(userId) {
+  return get(ref(database, `${userId}/liked`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      return Object.values(snapshot.val());
+    }
+    return [];
   });
 }
 
-export async function getProducts() {
+//좋아요 누르기
+export async function addLikedProduct(userId, product) {
+  return set(ref(database, `${userId}/liked/${product.id}`), product);
+}
+
+//좋아요 해제하기  (구현 필요)
+export async function removeLikedProduct(userId, product) {
+  return remove(ref(database, `carts/${userId}/${product.id}`));
+}
+
+//내그림 읽어오기
+export async function getArtwork(userId) {
+  return get(ref(database, `${userId}/products`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        return Object.values(snapshot.val());
+      }
+      return [];
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+//그림 쓰기
+export async function addNewArtwork(userId, product, imageUrl) {
+  const id = uuid();
+  return set(ref(database, `${userId}/products/${id}`), {
+    ...product,
+    id: id,
+    title: product.title,
+    url: imageUrl,
+    description: product.description,
+    type: product.type,
+  });
+}
+
+//그림 수정
+//
+//그림 삭제
+//
+
+//전체 그림 목록 읽기
+export async function getAllArtwork(userId) {
   return get(ref(database, `products`))
     .then((snapshot) => {
       if (snapshot.exists()) {

@@ -1,12 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard({ product, product: { id, price, url, options, type, title, category, description } }) {
+export default function ArtworkCard({ artwork, artwork: { id, price, url, options, type, title, category, description } }) {
   const navigate = useNavigate();
   return (
     <li
       onClick={() => {
-        navigate(`/products/${id}`, { state: { product } });
+        navigate(`/products/${id}`, { state: { artwork } });
       }}
       className="artCard w-full h-96 bg-gray-100 border cursor-pointer rounded-lg overflow-hidden"
     >

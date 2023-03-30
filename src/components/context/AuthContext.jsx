@@ -20,7 +20,7 @@ export function AuthContextProvider({ children }) {
     logout().then((user) => setUser(user));
   };
 
-  return <AuthContext.Provider value={{ user, handleLogin, handleLogout }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, uid: user && user.uid, handleLogin, handleLogout }}>{children}</AuthContext.Provider>;
 }
 
 export function useAuthContext() {

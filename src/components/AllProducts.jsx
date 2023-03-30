@@ -2,11 +2,11 @@ import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "./ProductCard";
 import { useAuthContext } from "./context/AuthContext";
-import { getArtwork } from "../api/firebase";
+import { getAllArtwork } from "../api/firebase";
 
 export default function Products() {
   const { uid } = useAuthContext();
-  const { isLoading, error, data: products } = useQuery(["artwork", uid], () => getArtwork(uid));
+  const { isLoading, error, data: products } = useQuery(["artwork"], () => getAllArtwork());
   return (
     <>
       {isLoading && <p>isLoading...</p>}
