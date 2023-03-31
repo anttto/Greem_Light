@@ -1,11 +1,9 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
 import ProductCard from "./ProductCard";
-import { useAuthContext } from "./context/AuthContext";
 import { getAllArtwork } from "../api/firebase";
 
 export default function Products() {
-  const { uid } = useAuthContext();
   const { isLoading, error, data: products } = useQuery(["artwork"], () => getAllArtwork());
   return (
     <>
@@ -14,7 +12,7 @@ export default function Products() {
       {products && (
         <ul className="artCardWrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 gap-y-4 py-6">
           {products.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.productId} product={product} />
           ))}
         </ul>
       )}

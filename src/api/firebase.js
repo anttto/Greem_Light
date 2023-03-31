@@ -32,6 +32,10 @@ export async function logout() {
 
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      const uid = user.uid;
+      set(ref(database, `users/${uid}`), { userName: user.displayName, userEmail: user.email });
+    }
     const updatedUser = user ? await adminUser(user) : null;
     callback(updatedUser);
   });
@@ -102,11 +106,13 @@ export async function removeLikedProduct(userId, product) {
 }
 
 //내그림 읽어오기
-export async function getArtwork(userId) {
-  return get(ref(database, `${userId}/products`))
+export async function getMyArtwork(uid) {
+  return get(ref(database, `products`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        return Object.values(snapshot.val());
+        const arr = Object.values(snapshot.val());
+        const myArtworks = arr.filter((product) => product.uid === uid);
+        return myArtworks.reverse();
       }
       return [];
     })
@@ -116,11 +122,12 @@ export async function getArtwork(userId) {
 }
 
 //그림 쓰기
-export async function addNewArtwork(userId, product, imageUrl) {
-  const id = uuid();
-  return set(ref(database, `${userId}/products/${id}`), {
+export async function addNewArtwork(uid, product, imageUrl) {
+  const productId = uuid();
+  return set(ref(database, `products/${productId}`), {
     ...product,
-    id: id,
+    productId: productId,
+    uid: uid,
     title: product.title,
     url: imageUrl,
     description: product.description,
@@ -138,7 +145,7 @@ export async function getAllArtwork(userId) {
   return get(ref(database, `products`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        return Object.values(snapshot.val());
+        return Object.values(snapshot.val()).reverse();
       }
       return [];
     })

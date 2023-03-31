@@ -10,8 +10,8 @@ export default function ProductCard({ product, product: { id, price, url, option
       }}
       className="artCard w-full h-96 bg-gray-100 border cursor-pointer rounded-lg overflow-hidden"
     >
-      <div className="w-full h-4/6 overflow-hidden relative">
-        <img className="max-w-md h-100 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2" src={url} alt={title} />
+      <div className="w-full h-4/6 overflow-hidden relative flex items-center justify-center">
+        <img className=" max-w-6xl  max-h-full" src={url} alt={title} />
       </div>
       <div className="text-left p-4">
         <h3>{title}</h3>
