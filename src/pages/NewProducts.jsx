@@ -48,14 +48,16 @@ export default function NewProducts() {
       {success && <p className="my-2">✅ {success}</p>}
       {file && <img className="w-72 mx-auto mb-2" src={URL.createObjectURL(file)} alt="local file" />}
       <form onSubmit={handleSubmit} className="flex flex-col px-12">
-        <input onChange={handleChange} name="file" className="w-full" type="file" accept="image/*" required placeholder="제품명" />
-        <input name="title" value={product.title ?? ""} className="w-full" type="text" required placeholder="제품명" onChange={handleChange} />
-        <input name="description" value={product.description ?? ""} className="w-full" type="text" required placeholder="제품 설명" onChange={handleChange} />
+        <input onChange={handleChange} name="file" className="w-full" type="file" accept="image/*" required placeholder="파일" />
+        <input name="title" value={product.title ?? ""} className="w-full" type="text" required placeholder="그림 제목" onChange={handleChange} />
+        <input name="description" value={product.description ?? ""} className="w-full" type="text" required placeholder="그림 설명" onChange={handleChange} />
         {/* <input name="price" value={product.price ?? ""} className="w-full" type="number" required placeholder="가격" onChange={handleChange} /> */}
         {/* <input name="category" value={product.category ?? ""} className="w-full" type="text" required placeholder="카테고리" onChange={handleChange} /> */}
         {/* <input name="options" value={product.options ?? ""} className="w-full" type="text" placeholder="옵션 (콤마(,)로 구분)" onChange={handleChange} /> */}
-        <select name="type" value="" onChange={handleChange}>
-          <option value="cate">타입</option>
+        <select name="type" value="" onChange={handleChange} className="px-3">
+          <option key="type" value="">
+            장르
+          </option>
           <option key="type1" value="character">
             캐릭터
           </option>

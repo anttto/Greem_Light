@@ -2,6 +2,7 @@ import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import { v4 as uuid } from "uuid";
+// import { useState } from "react";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -97,8 +98,33 @@ export async function getLiked(userId) {
 
 //좋아요 누르기
 export async function addLikedProduct(userId, product) {
-  return set(ref(database, `${userId}/liked/${product.id}`), product);
+  let count = product.liked;
+  return set(ref(database, `products/${product.productId}`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log(product);
+        return { ...product, liked: count + 1 };
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
 }
+
+// async function likeCount(product) {
+//   const count = product.liked;
+//   return get(ref(database, `products/${product.id}`))
+//     .then((snapshot) => {
+//       if (snapshot.exists()) {
+//         const product = snapshot.val();
+//         console.log(product);
+//         return { ...product, liked: count + 1 };
+//       }
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// }
 
 //좋아요 해제하기  (구현 필요)
 export async function removeLikedProduct(userId, product) {
@@ -131,7 +157,10 @@ export async function addNewArtwork(uid, product, imageUrl) {
     title: product.title,
     url: imageUrl,
     description: product.description,
+    liked: 0,
     type: product.type,
+  }).catch((error) => {
+    console.error(error);
   });
 }
 
@@ -141,15 +170,24 @@ export async function addNewArtwork(uid, product, imageUrl) {
 //
 
 //전체 그림 목록 읽기
-export async function getAllArtwork(userId) {
+export async function getAllArtwork() {
   return get(ref(database, `products`))
     .then((snapshot) => {
       if (snapshot.exists()) {
-        return Object.values(snapshot.val()).reverse();
+        const arr = Object.values(snapshot.val());
+        return shuffle(arr);
       }
       return [];
     })
     .catch((error) => {
       console.error(error);
     });
+}
+//전체 그림 목록 - 랜덤 배열 셔플
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    let j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 }

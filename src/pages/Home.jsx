@@ -5,10 +5,9 @@ import AllProducts from "../components/AllProducts";
 
 export default function Home() {
   return (
-    <div className="py-6">
-      <Banner />
+    <div className="">
+      {/* <Banner /> */}
       <AllProducts />
-      {/* <Products /> */}
     </div>
   );
 }
