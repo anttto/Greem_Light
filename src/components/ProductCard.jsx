@@ -8,10 +8,10 @@ export default function ProductCard({ product, product: { productId, url, type, 
       onClick={() => {
         navigate(`/products/${productId}`, { state: { product } });
       }}
-      className="artCard w-full bg-gray-100 border cursor-pointer rounded-lg overflow-hidden"
+      className="artCard w-full  cursor-pointer rounded-lg overflow-hidden"
     >
       <div className="w-full h-4/6 overflow-hidden relative flex items-center justify-center">
-        <img className=" max-w-6xl max-h-full" src={url} alt={title} />
+        <img className="max-w-md max-h-screen scale-150" src={url} alt={title} />
       </div>
       <div className="text-left p-4">
         <h3>{title}</h3>

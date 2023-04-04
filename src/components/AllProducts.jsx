@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard";
 import { getAllArtwork } from "../api/firebase";
 
 export default function Products() {
-  const { isLoading, error, data: products } = useQuery(["artwork"], () => getAllArtwork(), { staleTime: 1000 * 180, cacheTime: 1000 * 300 });
+  const { isLoading, error, data: products } = useQuery(["artwork"], () => getAllArtwork());
   return (
     <section className="py-2 max-w-screen-xl mx-auto">
       {isLoading && <p>isLoading...</p>}

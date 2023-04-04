@@ -54,8 +54,8 @@ export default function NewProducts() {
         {/* <input name="price" value={product.price ?? ""} className="w-full" type="number" required placeholder="가격" onChange={handleChange} /> */}
         {/* <input name="category" value={product.category ?? ""} className="w-full" type="text" required placeholder="카테고리" onChange={handleChange} /> */}
         {/* <input name="options" value={product.options ?? ""} className="w-full" type="text" placeholder="옵션 (콤마(,)로 구분)" onChange={handleChange} /> */}
-        <select name="type" value="" onChange={handleChange} className="px-3">
-          <option key="type" value="">
+        <select name="type" value="" onChange={handleChange} className="px-3" required>
+          <option key="type" value="장르">
             장르
           </option>
           <option key="type1" value="character">

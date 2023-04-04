@@ -6,7 +6,7 @@ import { useAuthContext } from "./context/AuthContext";
 
 export default function MyFvArt() {
   const { uid } = useAuthContext();
-  const { isLoading, error, data: liked } = useQuery(["liked", uid], () => getLiked(uid));
+  const { isLoading, error, data: liked } = useQuery(["liked"], () => getLiked(uid));
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, set, remove } from "firebase/database";
+import { getDatabase, ref, get, set, remove, update } from "firebase/database";
 import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import { v4 as uuid } from "uuid";
 // import { useState } from "react";
@@ -33,14 +33,15 @@ export async function logout() {
 
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      const uid = user.uid;
-      set(ref(database, `users/${uid}`), { userName: user.displayName, userEmail: user.email });
-    }
     const updatedUser = user ? await adminUser(user) : null;
     callback(updatedUser);
   });
 }
+
+// if (user) {
+//   const uid = user.uid;
+//   set(ref(database, `users/${uid}`), { userName: user.displayName, userEmail: user.email, likeArtworks: ["init"] });
+// }
 
 async function adminUser(user) {
   return get(ref(database, `admins`))
@@ -97,36 +98,38 @@ export async function getLiked(userId) {
 }
 
 //좋아요 누르기
-export async function addLikedProduct(userId, product) {
-  let count = product.liked;
-  return set(ref(database, `products/${product.productId}`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        console.log(product);
-        return { ...product, liked: count + 1 };
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-}
-
-// async function likeCount(product) {
-//   const count = product.liked;
-//   return get(ref(database, `products/${product.id}`))
-//     .then((snapshot) => {
-//       if (snapshot.exists()) {
-//         const product = snapshot.val();
-//         console.log(product);
-//         return { ...product, liked: count + 1 };
+// export async function addLikedProduct(userId, product) {
+//   return get(ref(database, `users/${userId}`)).then((snapshot) => {
+//     if (snapshot.exists()) {
+//       const user = snapshot.val();
+//       const likeArtworks = user.likeArtworks;
+//       const result = likeArtworks.includes(product.productId);
+//       if (!result) {
+//         console.log("내가 좋아요 누른적 없는 작품 - 업데이트");
+//         return updateLike(likeArtworks, userId, product);
+//       } else {
+//         console.log("내가 좋아요 누른적 있음");
+//         return null;
 //       }
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
+//     }
+//   });
 // }
 
-//좋아요 해제하기  (구현 필요)
+async function updateLike(likeArtworks, userId, product) {
+  update(ref(database, `users/${userId}`), {
+    likeArtworks: [...likeArtworks, product.productId],
+  });
+
+  update(ref(database, `products/${product.productId}`), {
+    liked: product.liked + 1,
+  });
+}
+
+export async function addLikedProduct(userId, likeProductId) {
+  return set(ref(database, `liked/${userId}`), likeProductId);
+}
+
+//좋아요 해제하기 (구현 필요)
 export async function removeLikedProduct(userId, product) {
   return remove(ref(database, `carts/${userId}/${product.id}`));
 }

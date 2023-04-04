@@ -1,5 +1,5 @@
 import React from "react";
-// import { useState } from "react";
+import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { addLikedProduct } from "../api/firebase";
 import { useAuthContext } from "../components/context/AuthContext";
@@ -7,6 +7,7 @@ import Button from "../components/ui/Button";
 
 export default function ProductDetail() {
   const { uid } = useAuthContext();
+  const [like, setLike] = useState([]);
   const navigate = useNavigate();
   const {
     state: {
@@ -17,9 +18,13 @@ export default function ProductDetail() {
   // const handleSelect = (e) => setSelected(e.target.value);
 
   const handleLiked = () => {
-    const product = { productId, url, type, title, description, liked };
-    addLikedProduct(uid, product);
+    if (productId) {
+      setLike([...like, productId]);
+    }
+    addLikedProduct(uid, like);
   };
+
+  // console.log(like);
   return (
     <section className="p-5 flex flex-col max-w-7xl mx-auto bg-white">
       <div className="w-full text-center">

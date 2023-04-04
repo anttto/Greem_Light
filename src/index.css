@@ -28,12 +28,16 @@ select {
 }
 
 .artCard {
+  transition: all 0.5s;
   height: 22rem;
+  background-color: #fff;
 }
 .artCard img {
   transition: all 0.5s;
   /* transform-origin: center; */
   transform: scale(1);
+}
+.artCard:hover {
 }
 .artCard:hover img {
   transform: scale(1.07);
