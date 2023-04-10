@@ -1,24 +1,25 @@
 import React from "react";
 import { useQuery } from "@tanstack/react-query";
-import { getLiked } from "../api/firebase";
+import { getLiked, getMyLikedArtwork } from "../api/firebase";
 import ProductCard from "./ProductCard";
-import { useAuthContext } from "./context/AuthContext";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function MyFvArt() {
   const { uid } = useAuthContext();
-  const { isLoading, error, data: liked } = useQuery(["liked"], () => getLiked(uid));
+  const { data: likedProduct } = useQuery(["liked", uid], () => getLiked(uid));
+  const { isLoading, error, data: products } = useQuery(["artwork", likedProduct], () => getMyLikedArtwork(likedProduct));
 
   return (
-    <>
+    <section className="max-w-screen-xl mx-auto">
       {isLoading && <p>isLoading...</p>}
       {error && <p>Error...</p>}
-      {liked && (
-        <ul className="artCardWrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 gap-y-4 py-6">
-          {liked.map((product) => (
+      {products && (
+        <ul className="artCardWrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 gap-y-4 py-6">
+          {products.map((product) => (
             <ProductCard key={product.productId} product={product} />
           ))}
         </ul>
       )}
-    </>
+    </section>
   );
 }

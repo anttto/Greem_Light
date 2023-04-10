@@ -1,11 +1,12 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { login, logout, onUserStateChange } from "../../api/firebase";
+import { useNavigate } from "react-router-dom";
+import { login, logout, onUserStateChange } from "../api/firebase";
 
 const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [user, setUser] = useState(null);
-  // const [likeUser, setLikeUser] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     onUserStateChange((user) => {
@@ -19,6 +20,7 @@ export function AuthContextProvider({ children }) {
 
   const handleLogout = () => {
     logout().then((user) => setUser(user));
+    navigate("/");
   };
 
   return <AuthContext.Provider value={{ user, uid: user && user.uid, handleLogin, handleLogout }}>{children}</AuthContext.Provider>;

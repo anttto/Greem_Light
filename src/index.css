@@ -8,7 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @apply flex items-center flex-col;
-  background-color: #e1e1e1;
+  background-color: #fff;
 }
 
 #root {
@@ -22,6 +22,9 @@ code {
 input {
   @apply p-4 outline-none border border-gray-300 my-1;
 }
+textarea {
+  @apply p-4 outline-none border border-gray-300 my-1;
+}
 
 select {
   @apply outline-none border border-gray-300 w-full h-10 my-1;
@@ -30,12 +33,15 @@ select {
 .artCard {
   transition: all 0.5s;
   height: 22rem;
-  background-color: #fff;
+  /* background-color: #fff; */
 }
 .artCard img {
   transition: all 0.5s;
   /* transform-origin: center; */
   transform: scale(1);
+}
+.artwork-img {
+  max-height: 80vh;
 }
 .artCard:hover {
 }

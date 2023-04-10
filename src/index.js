@@ -6,12 +6,10 @@ import reportWebVitals from "./reportWebVitals";
 import App from "./App";
 import Home from "./pages/Home";
 import MyArtwork from "./pages/MyArtwork";
-// import AllProducts from "./pages/AllProducts";
 import NotFound from "./pages/NotFound";
 import ProductDetail from "./pages/ProductDetail";
-//import Cart from "./pages/Cart";
 import Liked from "./pages/Liked";
-import NewProducts from "./pages/NewProducts";
+import AddProduct from "./pages/AddProduct";
 // import ProtectedRoute from "./pages/ProtectedRoute";
 
 const router = createBrowserRouter([
@@ -26,11 +24,11 @@ const router = createBrowserRouter([
         path: "/products/new",
         element: (
           // <ProtectedRoute requireAdmie={true}>
-          <NewProducts />
+          <AddProduct />
           // </ProtectedRoute>
         ),
       },
-      { path: "/products/:id", element: <ProductDetail /> },
+      { path: "/products/:productId", element: <ProductDetail /> },
       {
         path: "/liked",
         element: (
@@ -45,9 +43,9 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
-  </React.StrictMode>
+  // <React.StrictMode>
+  <RouterProvider router={router}></RouterProvider>
+  // </React.StrictMode>
 );
 
 reportWebVitals();
