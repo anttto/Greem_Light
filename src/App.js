@@ -4,7 +4,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import { AuthContextProvider } from "./context/AuthContext";
 import Navbar from "./components/Navbar";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+// import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <Navbar />
         <Outlet />
       </AuthContextProvider>
-      <ReactQueryDevtools initialIsOpen />
+      {/* <ReactQueryDevtools initialIsOpen /> */}
     </QueryClientProvider>
   );
 }
