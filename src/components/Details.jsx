@@ -12,62 +12,53 @@ export default function ProductDetail() {
   const { uid } = useAuthContext();
   const navigate = useNavigate();
 
-  const { data: product } = useQuery(["like", productId], () => selectArtwork(productId));
+  const { data: product } = useQuery(["artwork", productId], () => selectArtwork(productId));
   const { data: likedProduct } = useQuery(["like", uid], () => getLiked(uid));
 
-  // const component = () => {
-  //   if (product) {
-  //     return product.liked;
-  //   }
-  // };
-
   const [likeCnt, setlikeCnt] = useState(0);
+
+  useEffect(() => {
+    if (product) {
+      setlikeCnt(product.liked);
+    }
+  }, [product]);
 
   const queryClient = useQueryClient();
   const updateLiked = useMutation(({ likeCnt, product }) => updateLikeCount(likeCnt, product), {
     onSuccess: () => {
-      return queryClient.invalidateQueries(["like", productId]);
+      return queryClient.invalidateQueries(["artwork", productId]);
     },
   });
 
   const removeLiked = useMutation(({ uid, product }) => removeLikedProduct(uid, product), {
     onSuccess: () => {
-      console.log("1: removeLikedProduct");
       queryClient.invalidateQueries(["like", uid]);
     },
   });
 
   const addLiked = useMutation(({ uid, product }) => addLikedProduct(uid, product), {
     onSuccess: () => {
-      console.log("2: addLikedProduct");
       queryClient.invalidateQueries(["like", uid]);
     },
   });
 
   const handleLiked = () => {
-    if (likedProduct) {
-      let boolean = false;
-      boolean = JSON.stringify(likedProduct).includes(product.productId);
-
-      if (boolean === true) {
-        removeLiked.mutate({ uid, product });
-        setlikeCnt((prev) => prev - 1);
-      } else {
-        addLiked.mutate({ uid, product });
-        setlikeCnt((prev) => prev + 1);
-      }
-      // console.log(likeCnt);
+    if (!likedProduct) {
+      return;
     }
-    updateLiked.mutate(
-      { likeCnt, product },
-      {
-        onSuccess: () => {
-          console.log(likeCnt);
-          console.log(product);
-          console.log("invalidated");
-        },
-      }
-    );
+
+    const isLiked = JSON.stringify(likedProduct).includes(product.productId);
+    const updatedLikeCnt = isLiked ? likeCnt - 1 : likeCnt + 1;
+
+    setlikeCnt(updatedLikeCnt);
+
+    if (isLiked) {
+      removeLiked.mutate({ uid, product });
+    } else {
+      addLiked.mutate({ uid, product });
+    }
+
+    updateLiked.mutate({ likeCnt: updatedLikeCnt, product });
   };
 
   if (product)

@@ -103,20 +103,50 @@ export async function getMyArtwork(userId) {
 //   return duplicates;
 // };
 
+// export async function getMyArtwork(userId) {
+//   return get(ref(database, `products`))
+//     .then((snapshot) => {
+//       if (snapshot.exists()) {
+//         const arr = Object.values(snapshot.val());
+//         const myArtworks = arr.filter((product) => product.uid === userId);
+//         return myArtworks.reverse();
+//       }
+//       return [];
+//     })
+//     .catch((error) => {
+//       console.error(error);
+//     });
+// }
+
 export async function getMyLikedArtwork(likedProduct) {
   return get(ref(database, `products`)).then((snapshot) => {
-    const like = likedProduct;
-    console.log(like);
-
+    const likedKey = Object.values(likedProduct);
     if (snapshot.exists()) {
-      if (likedProduct) {
-      }
-      if (snapshot) {
-        const like = likedProduct;
-        console.log(like);
-      }
+      const productArr = Object.values(snapshot.val());
+      const resultArr = findMatchingObjects(likedKey, productArr);
+      return resultArr;
+    } else {
+      return [];
     }
   });
+}
+
+function findMatchingObjects(arr1, arr2) {
+  const matchingObjects = [];
+
+  arr1.forEach((obj1) => {
+    arr2.forEach((obj2) => {
+      // 객체의 속성들이 모두 같은지 비교
+      const isSameObject = Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
+      // 같은 객체일 경우 matchingObjects 배열에 추가
+      if (isSameObject) {
+        matchingObjects.push(obj2);
+      }
+    });
+  });
+
+  // console.log(matchingObjects);
+  return matchingObjects;
 }
 
 //전체 그림 목록 읽기
