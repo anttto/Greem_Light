@@ -120,8 +120,8 @@ export async function getMyArtwork(userId) {
 
 export async function getMyLikedArtwork(likedProduct) {
   return get(ref(database, `products`)).then((snapshot) => {
-    const likedKey = Object.values(likedProduct);
     if (snapshot.exists()) {
+      const likedKey = Object.values(likedProduct);
       const productArr = Object.values(snapshot.val());
       const resultArr = findMatchingObjects(likedKey, productArr);
       return resultArr;

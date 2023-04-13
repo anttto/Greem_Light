@@ -69,7 +69,7 @@ export default function NewProducts() {
             컨셉아트
           </option>
         </select> */}
-        <Button text={isUploading ? "업로드 중..." : "제품 등록하기"} disabled={isUploading} />
+        <Button text={isUploading ? "업로드 중..." : "그림 등록하기"} disabled={isUploading} />
       </form>
     </section>
   );

@@ -10,7 +10,7 @@ export default function MyFvArt() {
   const { isLoading, error, data: products } = useQuery(["like", likedProduct], () => getMyLikedArtwork(likedProduct));
 
   return (
-    <section className="max-w-screen-xl mx-auto">
+    <section className="py-2 px-4 max-w-screen-2xl mx-auto">
       {isLoading && <p>isLoading...</p>}
       {error && <p>Error...</p>}
       {products && (

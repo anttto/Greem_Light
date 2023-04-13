@@ -43,8 +43,12 @@ select {
 .artwork-img {
   max-height: 80vh;
 }
-.artCard:hover {
-}
 .artCard:hover img {
   transform: scale(1.07);
+}
+
+header nav a.active {
+  color: #5a9a1e;
+  font-weight: 700;
+  text-decoration: underline;
 }
