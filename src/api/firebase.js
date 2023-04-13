@@ -92,48 +92,22 @@ export async function getMyArtwork(userId) {
     });
 }
 
-// const findDuplicates = (obj1, obj2) => {
-//   const duplicates = {};
-//   obj1).forEach((key) =>{
-//     if (obj2.hasOwnProperty(key) && obj1[key] === obj2[key]) {
-//       console.log(key);
-//       duplicates[key] = obj1[key];
-//     }
-//   });
-//   return duplicates;
-// };
-
-// export async function getMyArtwork(userId) {
-//   return get(ref(database, `products`))
-//     .then((snapshot) => {
-//       if (snapshot.exists()) {
-//         const arr = Object.values(snapshot.val());
-//         const myArtworks = arr.filter((product) => product.uid === userId);
-//         return myArtworks.reverse();
-//       }
-//       return [];
-//     })
-//     .catch((error) => {
-//       console.error(error);
-//     });
-// }
-
-export async function getMyLikedArtwork(likedProduct) {
-  return get(ref(database, `products`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      const likedKey = Object.values(likedProduct);
-      const productArr = Object.values(snapshot.val());
-      const resultArr = findMatchingObjects(likedKey, productArr);
-      return resultArr;
-    } else {
-      return [];
-    }
-  });
+//좋아요 클릭한 그림 읽어오기
+export async function getMyLikedArtwork(likedProduct = {}) {
+  const snapshot = await get(ref(database, `products`));
+  if (snapshot.exists()) {
+    const likedKey = Object.keys(likedProduct);
+    const productArr = Object.values(snapshot.val());
+    const resultArr = findMatchingObjects(likedKey, productArr);
+    return resultArr;
+  } else {
+    return [];
+  }
 }
 
+//Liked 와 Products 의 배열 객체 비교 후 같은것을 matchingObjects 배열에 담는 함수식
 function findMatchingObjects(arr1, arr2) {
   const matchingObjects = [];
-
   arr1.forEach((obj1) => {
     arr2.forEach((obj2) => {
       // 객체의 속성들이 모두 같은지 비교
@@ -144,8 +118,6 @@ function findMatchingObjects(arr1, arr2) {
       }
     });
   });
-
-  // console.log(matchingObjects);
   return matchingObjects;
 }
 
@@ -179,7 +151,6 @@ export async function selectArtwork(productId) {
         const arr = Object.values(snapshot.val());
         const selectArtwork = arr.filter((product) => product.productId === productId);
         return selectArtwork[0];
-        // console.log(selectArtwork[0]);
       }
       return [];
     })
@@ -199,10 +170,16 @@ export async function addNewArtwork(uid, product, imageUrl) {
     url: imageUrl,
     description: product.description,
     liked: 0,
-    // type: product.type,
   }).catch((error) => {
     console.error(error);
   });
+}
+
+export async function removeProductDb(product) {
+  return remove(ref(database, `products/${product.productId}`));
+}
+export async function removeLikedDb(userId, product) {
+  return remove(ref(database, `liked/${userId}/${product.productId}`));
 }
 
 //---------------------구현 필요한 것들---------------------

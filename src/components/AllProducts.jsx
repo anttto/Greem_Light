@@ -1,10 +1,15 @@
 import React from "react";
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
 import ProductCard from "./ProductCard";
-import { getAllArtwork } from "../api/firebase";
+// import { getAllArtwork } from "../api/firebase";
+import useArtwork from "../hooks/useArtwork";
 
 export default function Products() {
-  const { isLoading, error, data: products } = useQuery(["artwork"], () => getAllArtwork());
+  // const { isLoading, error, data: products } = useQuery(["artwork"], () => getAllArtwork(), { staleTime: 1000 * 60 });
+  const {
+    getArtwork: { isLoading, error, data: products },
+  } = useArtwork();
+
   return (
     <section className="py-2 px-4 max-w-screen-2xl mx-auto">
       {isLoading && <p>isLoading...</p>}

@@ -32,7 +32,7 @@ select {
 
 .artCard {
   transition: all 0.5s;
-  max-height: 22rem;
+  max-height: 23rem;
   /* background-color: #fff; */
 }
 .artCard img {
