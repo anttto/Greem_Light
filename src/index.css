@@ -10,7 +10,7 @@ body {
   @apply flex items-center flex-col;
   background-color: #fff;
 }
-
+//
 #root {
   @apply w-full;
 }
