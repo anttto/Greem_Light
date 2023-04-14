@@ -19,16 +19,17 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, element: <Home /> },
-      { path: "/artwork", element: <MyArtwork /> },
+      { path: "/artworks", element: <MyArtwork /> },
       {
-        path: "/products/new",
+        path: "/artworks/upload",
         element: (
           // <ProtectedRoute requireAdmie={true}>
           <AddProduct />
           // </ProtectedRoute>
         ),
       },
-      { path: "/products/:productId", element: <ProductDetail /> },
+      { path: "/artworks/:productId", element: <ProductDetail /> },
+      { path: "/artworks/modify/:productId", element: <ProductDetail /> },
       {
         path: "/liked",
         element: (

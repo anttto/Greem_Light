@@ -10,7 +10,7 @@ import "swiper/css/pagination";
 
 export default function Banner() {
   // SwiperCore.use([Navigation, Pagination]);
-  const { data: products } = useQuery(["artwork"], () => getAllArtwork());
+  const { data: artworks } = useQuery(["artwork"], () => getAllArtwork());
   return (
     <section>
       <Swiper
@@ -30,8 +30,8 @@ export default function Banner() {
         //   },
         // }}
       >
-        {products &&
-          products.map((product) => (
+        {artworks &&
+          artworks.map((product) => (
             <SwiperSlide key={product.productId}>
               <img src={product.url} alt={product.title} />
             </SwiperSlide>

@@ -6,7 +6,7 @@ export default function ProductCard({ product, product: { productId, url, title,
   return (
     <li
       onClick={() => {
-        navigate(`/products/${productId}`);
+        navigate(`/artworks/${productId}`);
       }}
       className="artCard w-full cursor-pointer rounded-lg overflow-hidden bg-gray-100 shadow-md"
     >

@@ -14,9 +14,9 @@ export default function Gnb() {
         </NavLink>
         <nav className="flex justify-start items-center gap-6 text-gray-600">
           <NavLink to="/">모두의그림</NavLink>
-          {user && <NavLink to="/artwork">내그림</NavLink>}
+          {user && <NavLink to="/artworks">내그림</NavLink>}
           {user && <NavLink to="/liked">좋아요</NavLink>}
-          {user && <NavLink to="/products/new">포스팅</NavLink>}
+          {user && <NavLink to="/artworks/upload">포스팅</NavLink>}
           {user && <User user={user} />}
           {!user && <Button text={"그림 올리기"} onClick={handleLogin}></Button>}
           {user && <Button text={"연결 끊기"} onClick={handleLogout}></Button>}

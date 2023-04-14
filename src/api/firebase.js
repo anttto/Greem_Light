@@ -1,6 +1,12 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
-import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
+import {
+  getAuth,
+  signInWithPopup,
+  GoogleAuthProvider,
+  signOut,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
@@ -96,7 +102,7 @@ export async function getMyArtwork(userId) {
 export async function getMyLikedArtwork(likedProduct = {}) {
   const snapshot = await get(ref(database, `products`));
   if (snapshot.exists()) {
-    const likedKey = Object.keys(likedProduct);
+    const likedKey = Object.values(likedProduct);
     const productArr = Object.values(snapshot.val());
     const resultArr = findMatchingObjects(likedKey, productArr);
     return resultArr;
@@ -105,13 +111,15 @@ export async function getMyLikedArtwork(likedProduct = {}) {
   }
 }
 
-//Liked 와 Products 의 배열 객체 비교 후 같은것을 matchingObjects 배열에 담는 함수식
+//Liked 와 Products 의 배열 객체 비교 후 같은 것을 matchingObjects 배열에 담는 함수식
 function findMatchingObjects(arr1, arr2) {
   const matchingObjects = [];
   arr1.forEach((obj1) => {
     arr2.forEach((obj2) => {
       // 객체의 속성들이 모두 같은지 비교
-      const isSameObject = Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
+      const isSameObject = Object.keys(obj1).every(
+        (key) => obj1[key] === obj2[key]
+      );
       // 같은 객체일 경우 matchingObjects 배열에 추가
       if (isSameObject) {
         matchingObjects.push(obj2);
@@ -149,7 +157,9 @@ export async function selectArtwork(productId) {
     .then((snapshot) => {
       if (snapshot.exists()) {
         const arr = Object.values(snapshot.val());
-        const selectArtwork = arr.filter((product) => product.productId === productId);
+        const selectArtwork = arr.filter(
+          (product) => product.productId === productId
+        );
         return selectArtwork[0];
       }
       return [];

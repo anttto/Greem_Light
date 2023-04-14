@@ -1,13 +1,9 @@
-// import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-// import { addNewArtwork } from "../api/firebase";
 import { uploadImage } from "../api/uploader";
 import { useAuthContext } from "../context/AuthContext";
 import useArtwork from "../hooks/useArtwork";
-// import addArtwork from "../hooks/useArtwork";
-// import { useAuthContext } from "../context/AuthContext";
 import Button from "./ui/Button";
 
 export default function NewProducts() {
