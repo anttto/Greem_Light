@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/artworks", element: <MyArtwork /> },
       {
-        path: "/artworks/upload",
+        path: "/upload",
         element: (
           // <ProtectedRoute requireAdmie={true}>
           <AddProduct />
@@ -29,15 +29,8 @@ const router = createBrowserRouter([
         ),
       },
       { path: "/artworks/:productId", element: <ProductDetail /> },
-      { path: "/artworks/modify/:productId", element: <ProductDetail /> },
-      {
-        path: "/liked",
-        element: (
-          // <ProtectedRoute>
-          <Liked />
-          // </ProtectedRoute>
-        ),
-      },
+      { path: "/edit/:productId", element: <AddProduct /> },
+      { path: "/liked", element: <Liked /> },
     ],
   },
 ]);

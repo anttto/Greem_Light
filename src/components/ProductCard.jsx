@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function ProductCard({ product, product: { productId, url, title, description, liked } }) {
+export default function ProductCard({ product: { productId, url, title, description, liked } }) {
   const navigate = useNavigate();
   return (
     <li
@@ -16,7 +16,6 @@ export default function ProductCard({ product, product: { productId, url, title,
       <div className="text-left p-3 ">
         <h3 className="font-semibold text-md mb-1">{title}</h3>
         <p className="line-clamp-2 text-sm text-gray-600 h-10">{description}</p>
-        {/* <p>{type}</p> */}
         <p className="mt-1">🍐 {liked}</p>
       </div>
     </li>

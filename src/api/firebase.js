@@ -1,12 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
-import {
-  getAuth,
-  signInWithPopup,
-  GoogleAuthProvider,
-  signOut,
-  onAuthStateChanged,
-} from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
@@ -117,9 +111,7 @@ function findMatchingObjects(arr1, arr2) {
   arr1.forEach((obj1) => {
     arr2.forEach((obj2) => {
       // 객체의 속성들이 모두 같은지 비교
-      const isSameObject = Object.keys(obj1).every(
-        (key) => obj1[key] === obj2[key]
-      );
+      const isSameObject = Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
       // 같은 객체일 경우 matchingObjects 배열에 추가
       if (isSameObject) {
         matchingObjects.push(obj2);
@@ -157,9 +149,9 @@ export async function selectArtwork(productId) {
     .then((snapshot) => {
       if (snapshot.exists()) {
         const arr = Object.values(snapshot.val());
-        const selectArtwork = arr.filter(
-          (product) => product.productId === productId
-        );
+        // console.log(`2:${arr}`);
+        const selectArtwork = arr.filter((product) => product.productId === productId);
+        // console.log(`3:${selectArtwork}`);
         return selectArtwork[0];
       }
       return [];

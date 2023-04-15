@@ -38,7 +38,15 @@ export default function ProductDetail() {
     updateLiked.mutate({ likeCnt: updatedLikeCnt, product });
   };
 
-  const removeArtwork = () => {
+  const handleEdit = () => {
+    navigate(`/edit/${product.productId}`, {
+      state: {
+        editProduct: product,
+      },
+    });
+  };
+
+  const handleRemove = () => {
     removeProductDb(product);
     removeLikedDb(uid, product);
     navigate("/");
@@ -56,8 +64,8 @@ export default function ProductDetail() {
         </div>
         <div className="flex max-w-4xl w-full justify-between gap-2 border-t-2 pt-10">
           <div className="flex gap-2">
-            {uid && isMyArtwork && <Button text={"수정"} onClick={handleLiked} />}
-            {uid && isMyArtwork && <Button text={"삭제"} onClick={removeArtwork} />}
+            {uid && isMyArtwork && <Button text={"수정"} onClick={handleEdit} />}
+            {uid && isMyArtwork && <Button text={"삭제"} onClick={handleRemove} />}
           </div>
           <div className="flex gap-2">
             {uid && <Button text={"좋아요"} onClick={handleLiked} liked={product.liked} />}

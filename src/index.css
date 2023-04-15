@@ -49,6 +49,7 @@ select {
 
 header nav a.active {
   color: #5a9a1e;
+  transform: scale(1.1);
   font-weight: 700;
-  text-decoration: underline;
+  /* text-decoration: underline; */
 }

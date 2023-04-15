@@ -1,7 +1,7 @@
 import React from "react";
 import AddNewProducts from "../components/AddNewProducts";
 
-export default function Home() {
+export default function AddProduct() {
   return (
     <>
       <AddNewProducts />
