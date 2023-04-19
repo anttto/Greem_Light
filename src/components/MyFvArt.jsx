@@ -14,7 +14,7 @@ export default function MyFvArt() {
       {isLoading && <p>isLoading...</p>}
       {error && <p>Error...</p>}
       {artworks && (
-        <ul className="artCardWrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 gap-y-4 py-6">
+        <ul className="artCardWrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 gap-y-6 py-6">
           {artworks.map((product) => (
             <ProductCard key={product.productId} product={product} />
           ))}

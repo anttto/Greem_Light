@@ -8,7 +8,7 @@ export default function ProductCard({ product: { productId, url, title, descript
       onClick={() => {
         navigate(`/artworks/${productId}`);
       }}
-      className="artCard w-full cursor-pointer rounded-lg overflow-hidden bg-gray-100 shadow-md"
+      className="artCard w-full cursor-pointer rounded-lg overflow-hidden shadow-md bg-white border border-gray-300"
     >
       <div className="w-full max-h-60 h-60 overflow-hidden relative flex flex-col items-center justify-center">
         <img className="sm:max-w-md max-h-screen" src={url} alt={title} />

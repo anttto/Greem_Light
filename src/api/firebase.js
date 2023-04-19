@@ -73,7 +73,7 @@ export async function updateLikeCount(likeCnt, product) {
     url: product.url,
     description: product.description,
     liked: likeCnt,
-  });
+  }).then(() => console.log("like check"));
 }
 
 //내그림 읽어오기
@@ -149,9 +149,7 @@ export async function selectArtwork(productId) {
     .then((snapshot) => {
       if (snapshot.exists()) {
         const arr = Object.values(snapshot.val());
-        // console.log(`2:${arr}`);
         const selectArtwork = arr.filter((product) => product.productId === productId);
-        // console.log(`3:${selectArtwork}`);
         return selectArtwork[0];
       }
       return [];
@@ -172,6 +170,22 @@ export async function addNewArtwork(uid, product, imageUrl) {
     url: imageUrl,
     description: product.description,
     liked: 0,
+  }).catch((error) => {
+    console.error(error);
+  });
+}
+
+export async function updateArtwork(editArtwork) {
+  // console.log(editArtwork);
+  // console.log(editArtwork.productId);
+  return set(ref(database, `products/${editArtwork.productId}`), {
+    ...editArtwork,
+    productId: editArtwork.productId,
+    uid: editArtwork.uid,
+    title: editArtwork.title,
+    url: editArtwork.url,
+    description: editArtwork.description,
+    liked: editArtwork.liked,
   }).catch((error) => {
     console.error(error);
   });

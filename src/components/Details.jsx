@@ -4,12 +4,13 @@ import Button from "./ui/Button";
 import { useState } from "react";
 import { useEffect } from "react";
 import useLiked from "../hooks/useLiked";
-import { removeLikedDb, removeProductDb } from "../api/firebase";
+import useArtwork from "../hooks/useArtwork";
 
 export default function ProductDetail() {
   const navigate = useNavigate();
   const [likeCnt, setlikeCnt] = useState(0);
   const [isMyArtwork, setIsMyArtwork] = useState(false);
+  const { removeArtwork, removeLike } = useArtwork(); //Query Custom Hook!!!!
   const { likedProduct, addLiked, removeLiked, updateLiked, uid, product } = useLiked(); //Query Custom Hook!!!!
 
   useEffect(() => {
@@ -34,7 +35,6 @@ export default function ProductDetail() {
     } else {
       addLiked.mutate({ uid, product });
     }
-
     updateLiked.mutate({ likeCnt: updatedLikeCnt, product });
   };
 
@@ -47,8 +47,8 @@ export default function ProductDetail() {
   };
 
   const handleRemove = () => {
-    removeProductDb(product);
-    removeLikedDb(uid, product);
+    removeArtwork.mutate({ product });
+    removeLike.mutate({ uid, product });
     navigate("/");
   };
 
@@ -74,6 +74,7 @@ export default function ProductDetail() {
               onClick={() => {
                 navigate(-1);
               }}
+              color={"#888"}
             />
           </div>
         </div>

@@ -27,11 +27,11 @@ export default function useLiked() {
 
   // 현재 페이지 Artwork Query 요청
   const { data: product } = useQuery(["artwork", productId], () => selectArtwork(productId));
-  
+
   // Artwork에 Liked 개수 상태 갱신
   const updateLiked = useMutation(({ likeCnt, product }) => updateLikeCount(likeCnt, product), {
     onSuccess: () => {
-      return queryClient.invalidateQueries(["artwork", productId]);
+      return queryClient.invalidateQueries(["artwork"]);
     },
   });
 
