@@ -7,7 +7,12 @@ import Navbar from "./components/Navbar";
 // import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = new QueryClient();
+
 function App() {
+  // useEffect(() => {
+  //   console.log(Kakao.isInitialized());
+  // }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>

@@ -5,7 +5,7 @@ import Button from "./ui/Button";
 import { useAuthContext } from "../context/AuthContext";
 
 export default function Gnb() {
-  const { user, handleLogin, handleLogout } = useAuthContext();
+  const { user, handleLogin, handleLogout, onClickToAuthorize} = useAuthContext();
   return (
     <header className="border-b border-gray-300 items-center py-2 px-6 bg-white">
       <div className="w-full max-w-screen-xl flex justify-between items-center mx-auto">
@@ -24,6 +24,7 @@ export default function Gnb() {
           )}
           {!user && <Button text={"그림 올리기"} onClick={handleLogin}></Button>}
           {user && <Button text={"로그아웃"} onClick={handleLogout}></Button>}
+          <Button text={"카카오 로그인"} onClick={onClickToAuthorize}></Button>
         </nav>
       </div>
     </header>
