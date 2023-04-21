@@ -119,7 +119,7 @@ export default function NewProducts() {
   //새로운 그림 등록할 때
   return (
     <section className="max-w-md mx-auto text-center pt-10 pb-32">
-      <h2 className="text-2xl font-bold my-4 mt-10">새로운 그림 등록</h2>
+      <h2 className="text-2xl font-bold my-4 mt-10">내 작품 올리기</h2>
       {success && <p className="my-2">✅ {success}</p>}
       {file && <img className="w-72 mx-auto mb-2" src={URL.createObjectURL(file)} alt="local file" />}
       <form onSubmit={handleSubmit} className="flex flex-col px-2">

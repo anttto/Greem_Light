@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
-import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "firebase/auth";
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
@@ -12,35 +12,18 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
-// const provider = new GoogleAuthProvider();
+const provider = new GoogleAuthProvider();
 const database = getDatabase(app);
 
-//회원 가입
-export async function join(email, password) {
-  return createUserWithEmailAndPassword(auth, email, password)
+//로그인
+export async function login() {
+  return signInWithPopup(auth, provider)
     .then((result) => {
       const user = result.user;
-      // console.log(userData);
-      console.log(user);
       return user;
     })
     .catch((error) => {
       console.log(error);
-    });
-}
-
-//로그인
-export async function login(email, password) {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      console.log(user);
-      return user;
-      // ...
-    })
-    .catch((error) => {
-      alert("가입 되지 않았습니다.");
     });
 }
 
@@ -52,6 +35,8 @@ export async function logout() {
 //유저 상태 체크
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
+    //새로운 규칙 추가 가능
+    // const updatedUser = user ? await adminUser(user) : null;
     callback(user);
   });
 }

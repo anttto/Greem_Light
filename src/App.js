@@ -9,10 +9,6 @@ import Navbar from "./components/Navbar";
 const queryClient = new QueryClient();
 
 function App() {
-  // useEffect(() => {
-  //   console.log(Kakao.isInitialized());
-  // }, []);
-
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>

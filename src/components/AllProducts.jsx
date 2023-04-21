@@ -8,7 +8,7 @@ export default function Products() {
   } = useArtwork();
 
   return (
-    <section className="py-2 px-4 max-w-screen-2xl mx-auto">
+    <section className="pt-16 py-2 px-4 max-w-screen-2xl mx-auto">
       {isLoading && <p>isLoading...</p>}
       {error && <p>Error...</p>}
       {products && (

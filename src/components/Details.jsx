@@ -54,15 +54,15 @@ export default function ProductDetail() {
 
   if (product)
     return (
-      <section className="p-5 flex flex-col items-center max-w-screen-6xl mx-auto bg-white pb-32">
-        <div className="w-full text-center">
+      <section className="pt-24 px-5 flex flex-col items-center max-w-screen-6xl mx-auto bg-white min-h-screen">
+        <div className="w-full text-center max-w-6xl">
           <img className="inline-block artwork-img" src={product.url} alt={product.title} />
         </div>
         <div className="max-w-4xl flex flex-col pt-10 pb-4 text-center">
           <h3 className="text-2xl font-semibold mb-4">{product.title}</h3>
           <p className="text-base font-normal mb-6 break-all text-left">{product.description}</p>
         </div>
-        <div className="flex max-w-4xl w-full justify-between gap-2 border-t-2 pt-10">
+        <div className="flex max-w-6xl w-full justify-between gap-2 border-t-2 pt-10">
           <div className="flex gap-2">
             {uid && isMyArtwork && <Button text={"수정"} onClick={handleEdit} />}
             {uid && isMyArtwork && <Button text={"삭제"} onClick={handleRemove} />}
