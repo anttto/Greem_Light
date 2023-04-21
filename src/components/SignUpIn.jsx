@@ -29,7 +29,7 @@ export default function Sign() {
     //유저 DB저장 로직 구현 예정 (nickname 과 이메일만..)
   };
 
-  //기존 멤버 상태 체큰
+  //기존 멤버 상태 체크
   const goToSignUp = () => {
     setIsMember((prev) => !prev);
   };
