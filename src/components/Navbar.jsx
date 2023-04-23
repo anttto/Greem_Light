@@ -8,7 +8,7 @@ import { logout } from "../api/firebase";
 export default function Gnb() {
   const { user } = useAuthContext();
   return (
-    <header className="sticky w-full border-b border-gray-300 items-center py-2 px-4 bg-white z-50">
+    <header className="fixed w-full border-b border-gray-300 items-center py-2 px-4 bg-white z-50">
       <div className="w-full max-w-screen-xl flex justify-between items-center mx-auto">
         <NavLink to="/" className="flex items-center justify-start text-3xl text-brand">
           <h1 className="text-2xl font-medium">Greem Light</h1>

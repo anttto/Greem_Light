@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
-import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
@@ -16,17 +16,27 @@ const auth = getAuth();
 const database = getDatabase(app);
 
 //회원 가입
-export async function join(email, password) {
+export async function join(email, password, displayName) {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((result) => {
       const user = result.user;
-      // console.log(userData);
-      console.log(user);
+      updateUser(displayName); //displayName 업데이트
+      return user;
+    })
+    .then((user) => {
+      addUser(user); //가입 User DB 저장
       return user;
     })
     .catch((error) => {
       console.log(error);
     });
+}
+
+//유저 정보 업데이트 (displayName)
+export async function updateUser(displayName) {
+  return updateProfile(auth.currentUser, {
+    displayName: displayName,
+  });
 }
 
 //로그인
@@ -35,12 +45,11 @@ export async function login(email, password) {
     .then((userCredential) => {
       // Signed in
       const user = userCredential.user;
-      console.log(user);
+      window.location.replace("/");
       return user;
-      // ...
     })
     .catch((error) => {
-      alert("가입 되지 않았습니다.");
+      alert("먼저 회원 가입을 진행해주세요.");
     });
 }
 
@@ -53,6 +62,23 @@ export async function logout() {
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
     callback(user);
+  });
+}
+
+//가입 일자
+const joinTime = () => {
+  const today = new Date();
+  let year = today.getFullYear();
+  let month = ("0" + (today.getMonth() + 1)).slice(-2);
+  let day = ("0" + today.getDate()).slice(-2);
+  return year + "-" + month + "-" + day;
+};
+
+//신규 가입 User 추가 : DB Create
+export async function addUser(user) {
+  return set(ref(database, `Users/${user.uid}`), {
+    email: user.email,
+    joinDate: joinTime(),
   });
 }
 

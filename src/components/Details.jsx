@@ -54,7 +54,7 @@ export default function ProductDetail() {
 
   if (product)
     return (
-      <section className="pt-24 px-5 flex flex-col items-center max-w-screen-6xl mx-auto bg-white min-h-screen">
+      <section className="px-5 py-20 flex flex-col items-center max-w-screen-6xl mx-auto bg-white min-h-screen">
         <div className="w-full text-center max-w-6xl">
           <img className="inline-block artwork-img" src={product.url} alt={product.title} />
         </div>
@@ -74,7 +74,7 @@ export default function ProductDetail() {
               onClick={() => {
                 navigate(-1);
               }}
-              color={"#888"}
+              style={{ backgroundColor: "#b4b4b4" }}
             />
           </div>
         </div>

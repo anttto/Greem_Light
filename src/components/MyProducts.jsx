@@ -6,9 +6,9 @@ import { getMyArtwork } from "../api/firebase";
 
 export default function Products() {
   const { uid } = useAuthContext();
-  const { isLoading, error, data: artworks } = useQuery(["artwork",uid], () => getMyArtwork(uid));
+  const { isLoading, error, data: artworks } = useQuery(["artwork", uid], () => getMyArtwork(uid));
   return (
-    <section className="py-2 px-4 max-w-screen-2xl mx-auto">
+    <section className="pt-16 py-2 px-4 max-w-screen-2xl mx-auto">
       {isLoading && <p>isLoading...</p>}
       {error && <p>Error...</p>}
       {artworks && (

@@ -1,8 +1,10 @@
 import React from "react";
 import { useState } from "react";
-import { join, login } from "../api/firebase";
+import { addUser, join, login } from "../api/firebase";
+// import { useAuthContext } from "../context/AuthContext";
 import Button from "./ui/Button";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function Sign() {
   // const User = useAuthContext();
@@ -62,37 +64,14 @@ export default function Sign() {
         />
         {isMember && <Button text={"입장 하기"} type="button" />}
         {!isMember && <Button text={"가입 하기"} type="button" />}
-        {isMember && (
-          <Button
-            text={"홈으로"}
-            onClick={() => {
-              navigate("/");
-            }}
-            style={{ backgroundColor: "#b4b4b4", marginTop: "0.4rem" }}
-          />
-        )}
-
-        {!isMember && (
-          <Button
-            text={"취소"}
-            onClick={() => {
-              navigate("/");
-            }}
-            style={{ backgroundColor: "#b4b4b4", marginTop: "0.4rem" }}
-          />
-        )}
       </form>
-      <div className="mt-6 inline-block text-gray-500">
+      <div className="mt-2 inline-block text-gray-500">
         {isMember ? (
           <span onClick={goToSignUp} className="cursor-pointer text-md">
             {"아직도 가입을 하지 않았다면 → ✅"}
           </span>
         ) : (
-          <div className="text-md px-4 text-center">
-            {/* <span className="block">🔒</span> */}
-            <span className="block">- 패스워드는 운영자도 알수 없도록 암호화 됩니다.</span>
-            <span className="block">- 저장 또한 하지 않습니다.</span>
-          </div>
+          <span className="text-sm">{"🔒 패스워드는 운영자도 알수 없도록 암호화되고 저장도 하지 않습니다."}</span>
         )}
       </div>
     </section>
