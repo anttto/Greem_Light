@@ -57,3 +57,93 @@ header nav a.active {
 #fvArtStyle {
   display: none;
 }
+
+.pf-icon {
+  display: flex;
+  width: 1.8rem;
+  height: 1.8rem;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 100rem;
+  font-style: normal;
+  margin-right: 0.4rem;
+  color: #fff;
+}
+.level_1 {
+  background-color: rgb(187, 187, 187);
+}
+.lnb-btn {
+  display: none;
+}
+@media (max-width: 760px) {
+  header {
+    position: relative;
+  }
+  .lnb-btn {
+    display: block;
+  }
+  header nav#lnb {
+    position: absolute;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    height: 100vh;
+    opacity: 0;
+    visibility: hidden;
+    background-color: #fff;
+    flex-direction: column;
+    padding: 4rem 0 0 0;
+    transition: all 0.2s ease-out;
+  }
+  header nav#lnb a {
+    height: 2rem;
+    margin-bottom: 1.2rem;
+    font-size: 1.1rem;
+  }
+  header .open nav#lnb {
+    right: 0%;
+    opacity: 1;
+    visibility: visible;
+  }
+
+  header .open nav#lnb #userBox {
+    margin-bottom: 1.2rem;
+  }
+
+  header .lnb-btn {
+    position: absolute;
+    top: 1.1rem;
+    right: 3rem;
+    z-index: 50;
+  }
+  header .lnb-btn::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: "";
+    display: inline-block;
+    width: 2rem;
+    height: 0.15rem;
+    background-color: #777;
+    transition: all 0.2s ease-out;
+  }
+  header .lnb-btn::after {
+    position: absolute;
+    top: 0.5rem;
+    left: 0;
+    content: "";
+    display: inline-block;
+    width: 2rem;
+    height: 0.15rem;
+    background-color: #777;
+    transition: all 0.2s ease-out;
+  }
+
+  header .open .lnb-btn::before {
+    transform: rotate(45deg) translate(12%, 50%);
+  }
+  header .open .lnb-btn::after {
+    transform: rotate(-45deg) translate(12%, -50%);
+  }
+}

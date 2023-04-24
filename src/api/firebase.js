@@ -20,11 +20,11 @@ export async function join(email, password, displayName) {
   return createUserWithEmailAndPassword(auth, email, password)
     .then((result) => {
       const user = result.user;
-      updateUser(displayName); //displayName 업데이트
       return user;
     })
     .then((user) => {
-      addUser(user); //가입 User DB 저장
+      updateUser(displayName);
+      addUser(user, displayName); //가입 User DB 저장
       return user;
     })
     .catch((error) => {
@@ -75,10 +75,21 @@ const joinTime = () => {
 };
 
 //신규 가입 User 추가 : DB Create
-export async function addUser(user) {
+export async function addUser(user, displayName) {
   return set(ref(database, `Users/${user.uid}`), {
     email: user.email,
     joinDate: joinTime(),
+    displayName: displayName,
+    level: 1,
+  });
+}
+
+export async function getUser(userId) {
+  return get(ref(database, `Users/${userId}`)).then((snapshot) => {
+    if (snapshot.exists()) {
+      const result = Object.values(snapshot.val());
+      return result;
+    }
   });
 }
 
