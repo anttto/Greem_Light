@@ -29,82 +29,15 @@
         - artwork Update api 만들기
         - artwork Delete 쿼리 수정 (캐쉬 키 변동된 이유..)
 
-
     > 19. 카카오톡 로그인 붙이기 (베타 2.0 진행으로 변경)
     > 20. 회원가입 전면 수정 (이메일, 패스워드 방식) - 완료
-    > 21. 햄버거 메뉴 만들기
-    > 22. 이메일 인증 절차 만들기
-    > 20. 마이페이지 새로 구성하기
-    > 21. 알파 1.0 배포
-    //
-    //
-    //
-    //
-    > xx. 워터마크 달기 -
+    > 21. 모바일 UI 구현 완료
+    > 22. 알파 1.0 배포 완료  (2023-04-25, 01:12)
 
-<!-- <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
-    <script>
-      Kakao.init("c43f869d0029e6ac8b2e705f7f077d8f");
-      console.log(Kakao);
-    </script> -->
+### 알파 2.0
 
-// /global Kakao
-// const redirectUri = "http://localhost:3000";
-// const onClickToAuthorize = () => {
-// Kakao.Auth.authorize({
-// redirectUri: redirectUri,
-// });
-// };
-
-// useEffect(() => {
-// const authorizeCodeFromKakao = window.location.search.split("=")[1];
-// if (authorizeCodeFromKakao !== "undefine") {
-// // console.log(`authorizeCodeFromKakao : ${authorizeCodeFromKakao}`);
-
-// const body = {
-// grant_type: "authorization_code",
-// client_id: "82b2cfe2070dc6367ccd415496e4109d",
-// redirect_uri: "http://localhost:3000",
-// code: authorizeCodeFromKakao,
-// };
-
-// const queryStringBody = Object.keys(body)
-// .map((k) => encodeURIComponent(k) + "=" + encodeURI(body[k]))
-// .join("&");
-
-// const getToken = async () => {
-// const res = await fetch("https://kauth.kakao.com/oauth/token", {
-// method: "POST",
-// headers: {
-// "content-type": "application/x-www-form-urlencoded;charset=utf-8",
-// },
-// body: queryStringBody,
-// });
-// if (!res) {
-// return;
-// } else {
-// const data = await res.json();
-// return data.access_token;
-// }
-// };
-
-// const getProfile = async (accessToken) => {
-// const res = await fetch("https://kapi.kakao.com/v2/user/me", {
-// headers: {
-// Authorization: `Bearer ${accessToken}`,
-// },
-// });
-// const data = await res.json();
-// return data;
-// };
-
-// const fetchData = async () => {
-// const accessToken = await getToken();
-// const profileData = await getProfile(accessToken);
-// console.log(profileData);
-// // 여기서 회원 정보를 처리
-// };
-
-// fetchData();
-// }
-// }, []);
+    > 1. 이메일 인증 절차 만들기
+    > 2. 유효성 체크 강화하기
+    > 3. 마이페이지 개발 (유저박스 강화)
+    > 4. 유저 레벨 시스템 개발 (DB 초기값 세팅해둠)
+    > 5. 이미지(리소스) 워터마크 구현 개발
