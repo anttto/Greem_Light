@@ -67,7 +67,7 @@ export default function NewProducts() {
       })
       .finally(() => {
         setIsUploading(false);
-        navigate("/artworks");
+        navigate("/");
       });
   };
 
@@ -84,7 +84,7 @@ export default function NewProducts() {
             setSuccess(null);
           }, 3000);
           setIsUploading(false);
-          navigate("/artworks");
+          navigate("/");
         },
       }
     );
