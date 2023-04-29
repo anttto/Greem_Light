@@ -32,7 +32,11 @@ export default function Gnb() {
           <NavLink to="/" onClick={handleLocalNav}>
             모두의그림
           </NavLink>
-          {user && <NavLink to="/artworks">내그림</NavLink>}
+          {user && (
+            <NavLink to="/artworks" onClick={handleLocalNav}>
+              내그림
+            </NavLink>
+          )}
           {/* {user && (
             <NavLink to="/liked" onClick={handleLocalNav}>
               좋아요🍐

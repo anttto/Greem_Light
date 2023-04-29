@@ -18,7 +18,7 @@ export default function ProductCard({ product: { productId, url, title, descript
         <span className="artimg" style={{ backgroundImage: `url('${url}')` }}></span>
       </div>
       <div className="art-info">
-        <h3 className="font-semibold text-md mb-1">{title}</h3>
+        <h3 className="line-clamp-1 font-semibold text-md mb-1">{title}</h3>
         <p className="line-clamp-1 text-sm text-gray-600 h-5">{description}</p>
         <div className="mt-1 flex justify-between items-center">
           <span className="artist text-sm font-bold text-gray-600">{displayName}</span>
