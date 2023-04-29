@@ -61,6 +61,7 @@ export async function logout() {
 //유저 상태 체크
 export function onUserStateChange(callback) {
   onAuthStateChanged(auth, async (user) => {
+    // updateUser("ss");
     callback(user);
   });
 }
@@ -212,7 +213,7 @@ export async function selectArtwork(productId) {
 }
 
 //그림 업로드
-export async function addNewArtwork(uid, product, imageUrl) {
+export async function addNewArtwork(user, uid, product, imageUrl) {
   const productId = uuid();
   return set(ref(database, `products/${productId}`), {
     ...product,
@@ -222,22 +223,21 @@ export async function addNewArtwork(uid, product, imageUrl) {
     url: imageUrl,
     description: product.description,
     liked: 0,
+    displayName: user.displayName,
   }).catch((error) => {
     console.error(error);
   });
 }
 
 export async function updateArtwork(editArtwork) {
-  // console.log(editArtwork);
-  // console.log(editArtwork.productId);
   return set(ref(database, `products/${editArtwork.productId}`), {
     ...editArtwork,
-    productId: editArtwork.productId,
-    uid: editArtwork.uid,
     title: editArtwork.title,
-    url: editArtwork.url,
     description: editArtwork.description,
-    liked: editArtwork.liked,
+    // productId: editArtwork.productId,
+    // uid: editArtwork.uid,
+    // url: editArtwork.url,
+    // liked: editArtwork.liked,
   }).catch((error) => {
     console.error(error);
   });

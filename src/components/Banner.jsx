@@ -20,6 +20,7 @@ export default function Banner() {
         slidesPerView={1}
         scrollbar={{ draggable: true }}
         navigation
+        speed={2000}
         autoplay={{ delay: 4000, disableOnInteraction: false }}
         loop={true}
         pagination={{ clickable: true }}

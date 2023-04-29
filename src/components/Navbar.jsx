@@ -23,21 +23,21 @@ export default function Gnb() {
   };
 
   return (
-    <header className="fixed w-full border-b border-gray-300 items-center py-2 px-4 bg-white z-50">
+    <header className="fixed w-full items-center px-4 bg-black z-50">
       <div className={`w-full max-w-screen-xl flex justify-between items-center mx-auto ${navOpen ? "open" : ""}`}>
         <NavLink to="/" className="flex items-center justify-start text-3xl text-brand">
-          <h1 className="text-2xl font-medium">Greem Light</h1>
+          <h1 className="text-2xl font-light">GREEM LIGHT</h1>
         </NavLink>
-        <nav id="lnb" className="flex justify-start items-center gap-4 text-gray-600">
+        <nav id="lnb" className="flex justify-start items-center gap-8 text-gray-500 ">
           <NavLink to="/" onClick={handleLocalNav}>
             모두의그림
           </NavLink>
-          {/* {user && <NavLink to="/artworks">내그림</NavLink>} */}
-          {user && (
+          {user && <NavLink to="/artworks">내그림</NavLink>}
+          {/* {user && (
             <NavLink to="/liked" onClick={handleLocalNav}>
               좋아요🍐
             </NavLink>
-          )}
+          )} */}
           {user && (
             <NavLink to="/upload" onClick={handleLocalNav}>
               그림올리기

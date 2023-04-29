@@ -8,11 +8,11 @@ export default function Products() {
   } = useArtwork();
 
   return (
-    <section className="pt-16 py-2 px-4 max-w-screen-2xl mx-auto">
+    <section className="lg:px-0 mx-auto bg-black">
       {isLoading && <p>isLoading...</p>}
       {error && <p>Error...</p>}
       {products && (
-        <ul className="artCardWrap grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 gap-y-6 py-6">
+        <ul className="artCardWrap grid gap-2 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 lg:gap-1 xl:grid-cols-5 2xl:xl:grid-cols-6 py-6">
           {products.map((product) => (
             <ProductCard key={product.productId} product={product} />
           ))}

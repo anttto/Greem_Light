@@ -5,7 +5,8 @@ module.exports = {
     extend: {
       colors: {
         // brand: "#5a9a1d",
-        brand: "#6bba33",
+        brand: "#8cdb01",
+        button: "#4d8617",
       },
     },
   },
