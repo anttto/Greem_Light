@@ -1,4 +1,18 @@
 # Greem Light
+(2023.03.11 ~ ing)
+
+> Front-end : React(cra) / Vanilla-js   
+> Back-end : Firebase (Auth, DB) 이용   
+> All : Css(Tailwind) / Babel / Webpack /   
+> Deploy : Netlify(도메인, 호스팅) / Cloudinary(저장소) - 이미지 처리
+
+### "한국의 아트스테이션을 만들자!"
+
+[GO WebSite 😀🚀](https://fabulous-elf-ae7759.netlify.app/) 
+![QRCodeImg](https://user-images.githubusercontent.com/57241573/235340854-e1b09f7f-e113-483e-b25d-0ef318adff5f.jpg)
+
+
+
 
 ### 프로세스 리스팅..
 
