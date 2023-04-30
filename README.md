@@ -11,7 +11,6 @@
 
 <a href="https://fabulous-elf-ae7759.netlify.app/" target="_blank">Go to Greem-Light 🚀</a>
 
-![greemlight_qr6](https://user-images.githubusercontent.com/57241573/235341361-68964357-0e1a-42e2-b7ba-8ba291b216ab.png)
 <a href="https://fabulous-elf-ae7759.netlify.app/" target="_blank"><img src="https://user-images.githubusercontent.com/57241573/235341361-68964357-0e1a-42e2-b7ba-8ba291b216ab.png"></a>
 
 
