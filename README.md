@@ -1,4 +1,4 @@
-# Greem Light
+# Greem Light 🎨
 
 (2023.03.11 ~ ing)
 
@@ -13,7 +13,7 @@
 
 ![greemlight_qr6](https://user-images.githubusercontent.com/57241573/235341361-68964357-0e1a-42e2-b7ba-8ba291b216ab.png)
 
-#### 개발 프로세스 리스팅
+### 개발 프로세스 리스팅 📒 ✅
 
 0.  React 개발 환경 세팅
 1.  페이지 구성 (라우터 설정)
