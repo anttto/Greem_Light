@@ -9,7 +9,7 @@
 
 ### "한국의 아트스테이션을 만들자!"
 
-#### [Go to Greem-Light 😀🚀](https://fabulous-elf-ae7759.netlify.app/)
+#### [Go to Greem-Light 😀🚀](https://fabulous-elf-ae7759.netlify.app/){:target="\_blank"}
 
 ![greemlight_qr6](https://user-images.githubusercontent.com/57241573/235341361-68964357-0e1a-42e2-b7ba-8ba291b216ab.png)
 
@@ -43,7 +43,7 @@
     > - 쿼리 구현
     > - artwork Update api 만들기
     > - artwork Delete 쿼리 수정 (캐쉬 키 변동된 이유..)
-13. 카카오톡 로그인 붙이기 (베타 2.0 진행으로 변경) // 전면수정 (이유 : firebase 이용시 여러가지 고려사항 발견)
+13. <strike>카카오톡 로그인 붙이기</strike> (베타 2.0 진행으로 변경) // 전면수정 (이유 : firebase 이용시 여러가지 고려사항 발견)
 14. 회원가입 전면 수정
     > - 이메일, 패스워드 방식으로
     > - 구현 완료
