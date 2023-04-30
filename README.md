@@ -8,11 +8,8 @@
 
 ### "한국의 아트스테이션을 만들자!"
 
-[GO WebSite 😀🚀](https://fabulous-elf-ae7759.netlify.app/) 
-![QRCodeImg](https://user-images.githubusercontent.com/57241573/235340854-e1b09f7f-e113-483e-b25d-0ef318adff5f.jpg)
-
-
-
+#### [GO WebSite 😀🚀](https://fabulous-elf-ae7759.netlify.app/) 
+![greemlight_qr6](https://user-images.githubusercontent.com/57241573/235341361-68964357-0e1a-42e2-b7ba-8ba291b216ab.png)
 
 ### 프로세스 리스팅..
 
