@@ -8,15 +8,14 @@
 
 ### "한국의 아트스테이션을 만들자!"
 
-#### [GO to Greem-Light 😀🚀](https://fabulous-elf-ae7759.netlify.app/) 
+#### [Go to Greem-Light 😀🚀](https://fabulous-elf-ae7759.netlify.app/) 
 ![greemlight_qr6](https://user-images.githubusercontent.com/57241573/235341361-68964357-0e1a-42e2-b7ba-8ba291b216ab.png)
 
-### 프로세스 리스팅..
+#### 초기 프로세스 리스팅
 
-    > 0. 초기 세팅
-    > 1. 라우터 설정
-    > 2. 페이징 구성 하기
-    > 3. 네비게이션 바 구현
+    > 0. React 개발 환경 세팅
+    > 1. 페이지 구성 (라우터 설정)  
+    > 3. 네비게이션 구현
     > 4. Firebase 세팅 (로그인 인증, DB 관련..)
     > 5. 로그인 기능 개발 (firebase authentication 이용 구글로그인 붙이기)
     > 6. 제품(이미지) 업로드 기능 개발
@@ -39,7 +38,6 @@
         - 쿼리 구현
         - artwork Update api 만들기
         - artwork Delete 쿼리 수정 (캐쉬 키 변동된 이유..)
-
     > 19. 카카오톡 로그인 붙이기 (베타 2.0 진행으로 변경)
     > 20. 회원가입 전면 수정 (이메일, 패스워드 방식) - 완료
     > 21. 모바일 UI 구현 완료
