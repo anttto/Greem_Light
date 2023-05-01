@@ -23,13 +23,13 @@ export default function NewProducts() {
   // console.log(user);
   //초기 랜더링 시 '수정'에 대한 접근인지 분기
   useEffect(() => {
-    console.log(location.state);
     if (location.state) {
       setEditArtwork(location.state.editProduct);
     } else {
       setEditArtwork(null);
     }
   }, [location]);
+
   const handleChange = (e) => {
     const { name, value, files } = e.target;
     if (name === "file") {
@@ -94,7 +94,7 @@ export default function NewProducts() {
   //수정 버튼으로 접근 했을 때
   if (editArtwork) {
     return (
-      <section className="max-w-md mx-auto text-center pb-32">
+      <section className="max-w-md mx-auto text-center pb-32 pt-20">
         <h2 className="text-2xl font-bold my-4 mt-10">내용 수정하기</h2>
         <img className="w-72 mx-auto mb-2" src={editArtwork.url} alt="local file" />
         <form className="flex flex-col px-2">
@@ -119,7 +119,7 @@ export default function NewProducts() {
 
   //새로운 그림 등록할 때
   return (
-    <section className="max-w-md mx-auto text-center flex flex-col justify-center min-h-screen md:min-h-0 md:justify-start md:mt-40">
+    <section className="max-w-md mx-auto text-center flex flex-col justify-center min-h-screen md:min-h-0 md:justify-start pt-20">
       <h2 className="text-2xl font-bold my-4 mt-10">내 작품 올리기</h2>
       {success && <p className="my-2">✅ {success}</p>}
       {file && <img className="w-72 mx-auto mb-2" src={URL.createObjectURL(file)} alt="local file" />}

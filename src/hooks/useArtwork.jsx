@@ -7,6 +7,9 @@ export default function useArtwork(productId) {
   // 모든 그림 Query 요청
   const getArtwork = useQuery(["artwork"], getAllArtwork, { staleTime: 1000 * 60, cacheTime: 1000 * 60 });
 
+  // 해당 그림의 userId Query 요청
+  // const getArtworkUserId = useQuery(["artwork"], getUserId);
+
   // Artwork - 추가(Add) 갱신
   const addArtwork = useMutation(({ user, uid, product, url }) => addNewArtwork(user, uid, product, url), {
     onSuccess: () => queryClient.invalidateQueries(["artwork"]),

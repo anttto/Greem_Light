@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getDatabase, ref, get, set, remove } from "firebase/database";
-import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import { v4 as uuid } from "uuid";
 
 const firebaseConfig = {
@@ -23,7 +23,7 @@ export async function join(email, password, displayName) {
       return user;
     })
     .then((user) => {
-      updateUser(displayName);
+      // updateUser(displayName);
       addUser(user, displayName); //가입 User DB 저장
       return user;
     })
@@ -33,11 +33,11 @@ export async function join(email, password, displayName) {
 }
 
 //유저 정보 업데이트 (displayName)
-export async function updateUser(displayName) {
-  return updateProfile(auth.currentUser, {
-    displayName: displayName,
-  });
-}
+// export async function updateUser(displayName) {
+//   return updateProfile(auth.currentUser, {
+//     displayName: displayName,
+//   });
+// }
 
 //로그인
 export async function login(email, password) {
@@ -126,7 +126,16 @@ export async function updateLikeCount(likeCnt, product) {
     url: product.url,
     description: product.description,
     liked: likeCnt,
-  }).then(() => console.log("like check"));
+  });
+}
+
+export async function getDisplayName(userId) {
+  const snapshot = await get(ref(database, `Users/${userId}`));
+  if (snapshot.exists()) {
+    const value = Object.values(snapshot.val());
+    // console.log(value);
+    return value[0];
+  }
 }
 
 //내그림 읽어오기

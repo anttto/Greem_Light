@@ -58,9 +58,9 @@ export default function ProductDetail() {
         <div className="w-full text-center max-w-6xl">
           <img className="inline-block artwork-img" src={product.url} alt={product.title} />
         </div>
-        <div className="max-w-4xl flex flex-col pt-10 pb-4 text-center">
+        <div className="max-w-5xl w-full flex flex-col pt-10 pb-4 text-center">
           <h3 className="text-2xl font-semibold mb-4">{product.title}</h3>
-          <p className="text-base font-normal mb-6 break-all text-left">{product.description}</p>
+          <p className="text-base font-normal mb-6 break-all text-center">{product.description}</p>
         </div>
         <div className="flex max-w-6xl w-full justify-between gap-2 border-t-2 pt-10">
           <div className="flex gap-2">

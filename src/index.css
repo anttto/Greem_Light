@@ -8,7 +8,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @apply flex items-center flex-col;
-  background-color: #f0f0f0;
+  /* background-color: #f0f0f0; */
+  background-color: #000;
 }
 
 #root {
@@ -35,7 +36,9 @@ header {
 }
 
 .content {
-  padding-top: 3rem;
+  padding-top: 0rem;
+  min-height: 100vh;
+  background-color: #f0f0f0;
 }
 
 .artCard {
@@ -69,11 +72,11 @@ header {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #fff;
+  background-color: #000;
 }
 .img-area .artimg {
   width: 100%;
-  height: 27rem;
+  height: 29rem;
   background-position: center;
   display: inline-block;
   background-size: cover;
@@ -105,7 +108,8 @@ header {
   color: #959595;
 }
 .art-info .artist {
-  color: #959595;
+  /* color: #497122; */
+  color: #bad050;
 }
 
 .art-info .liked em {
@@ -165,7 +169,7 @@ header nav a.active {
     height: 100vh;
     opacity: 0;
     visibility: hidden;
-    background-color: #fff;
+    background-color: #000;
     flex-direction: column;
     padding: 4rem 0 0 0;
     transition: all 0.2s ease-out;
