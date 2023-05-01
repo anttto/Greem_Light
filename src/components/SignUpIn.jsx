@@ -36,7 +36,7 @@ export default function Sign() {
   };
 
   return (
-    <section className="max-w-md mx-auto text-center flex flex-col justify-center min-h-screen md:min-h-0 md:justify-start md:mt-48">
+    <section className="max-w-md mx-auto text-center flex flex-col justify-center min-h-screen md:min-h-0 md:justify-start md:pt-48">
       {isMember ? (
         <h2 className="text-xl mb-4">
           "여러분의 <i className="font-bold not-italic text-green-600">GREEM</i>을 보여주세요"
