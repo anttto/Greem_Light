@@ -41,21 +41,23 @@ export default function Comment({ product }) {
   };
 
   return (
-    <div className="reply-wrap max-w-6xl w-full mt-12">
-      <div className="reply-input">
-        <form onSubmit={handleSubmit} className="flex justify-left items-center">
-          <textarea
-            name="reply"
-            cols="30"
-            rows="2"
-            value={input}
-            className="w-full rounded-lg h-20 max-h-20 m-0 mr-2"
-            placeholder="작가님에게 하고 싶은 말을 남겨주세요."
-            onChange={handleChange}
-          ></textarea>
-          <Button text={"글쓰기"} style={{ padding: "0", width: "8rem", height: "5rem", backgroundColor: "#a89461" }} />
-        </form>
-      </div>
+    <div className="reply-wrap max-w-6xl w-full">
+      {uid && (
+        <div className="reply-input mt-12">
+          <form onSubmit={handleSubmit} className="flex justify-left items-center">
+            <textarea
+              name="reply"
+              cols="30"
+              rows="2"
+              value={input}
+              className="w-full rounded-lg h-20 max-h-20 m-0 mr-2"
+              placeholder="작가님에게 하고 싶은 말을 남겨주세요."
+              onChange={handleChange}
+            ></textarea>
+            <Button text={"글쓰기"} style={{ padding: "0", width: "8rem", height: "5rem", backgroundColor: "#a89461" }} />
+          </form>
+        </div>
+      )}
 
       <div className="reply-list">
         {comments && (

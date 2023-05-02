@@ -81,7 +81,7 @@ export default function ProductDetail() {
             />
           </div>
         </div>
-        {uid && <Comment product={product} />}
+        <Comment product={product} />
       </section>
     );
 }
