@@ -1,22 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
-// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { getDisplayName } from "../api/firebase";
-// import { useAuthContext } from "../context/AuthContext";
 
 export default function ProductCard({ product: { productId, url, uid, title, description, liked } }) {
-  // const { user } = useAuthContext();
-  // console.log(displayName);
   const navigate = useNavigate();
   const { data: displayName } = useQuery(["user", uid], () => getDisplayName(uid));
-  // useEffect(() => {
-  //   console.log(uid);
-  // }, [uid]);
   return (
     <li
       onClick={() => {
-        navigate(`/artworks/${productId}`);
+        navigate(`/artworks/${productId}`, { state: displayName });
       }}
       className="artCard w-full cursor-pointer lg:rounded-none lg:shadow-none lg:border-none overflow-hidden"
     >

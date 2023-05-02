@@ -94,7 +94,7 @@ export default function NewProducts() {
   //수정 버튼으로 접근 했을 때
   if (editArtwork) {
     return (
-      <section className="max-w-md mx-auto text-center pb-32 pt-20">
+      <section className="max-w-md mx-auto text-center pb-32 pt-14 md:pt-32">
         <h2 className="text-2xl font-bold my-4 mt-10">내용 수정하기</h2>
         <img className="w-72 mx-auto mb-2" src={editArtwork.url} alt="local file" />
         <form className="flex flex-col px-2">
@@ -110,7 +110,7 @@ export default function NewProducts() {
           ></textarea>
           <div className="flex items-center justify-center gap-2 mt-4">
             <Button text={"수정하기"} disabled={isUploading} onClick={handleEditSubmit} />
-            <Button text={"뒤로가기"} color={"#777"} onClick={() => navigate(-1)} />
+            <Button text={"취소"} style={{ backgroundColor: "#b4b4b4" }} onClick={() => navigate("/")} />
           </div>
         </form>
       </section>
@@ -119,7 +119,7 @@ export default function NewProducts() {
 
   //새로운 그림 등록할 때
   return (
-    <section className="max-w-md mx-auto text-center flex flex-col justify-center min-h-screen md:min-h-0 md:justify-start pt-20">
+    <section className="max-w-md mx-auto text-center flex flex-col  min-h-screen md:min-h-0 md:justify-start pt-20 md:pt-32">
       <h2 className="text-2xl font-bold my-4 mt-10">내 작품 올리기</h2>
       {success && <p className="my-2">✅ {success}</p>}
       {file && <img className="w-72 mx-auto mb-2" src={URL.createObjectURL(file)} alt="local file" />}
@@ -128,6 +128,7 @@ export default function NewProducts() {
         <input name="title" className="w-full rounded-lg" type="text" required placeholder="그림 제목" onChange={handleChange} />
         <textarea name="description" cols="30" rows="5" className="w-full mb-2 rounded-lg" required placeholder="그림 설명" onChange={handleChange}></textarea>
         <Button text={isUploading ? "업로드 중..." : "그림 등록하기"} disabled={isUploading} />
+        <Button text={"취소"} style={{ backgroundColor: "#b4b4b4", marginTop: "0.4rem" }} onClick={() => navigate("/")} />
       </form>
     </section>
   );

@@ -67,13 +67,24 @@ export function onUserStateChange(callback) {
 }
 
 //가입 일자
-const joinTime = () => {
+// export function joinTime() {
+//   const today = new Date();
+//   let year = today.getFullYear();
+//   let month = ("0" + (today.getMonth() + 1)).slice(-2);
+//   let day = ("0" + today.getDate()).slice(-2);
+//   return year + "-" + month + "-" + day;
+// }
+
+export function joinTime() {
   const today = new Date();
   let year = today.getFullYear();
   let month = ("0" + (today.getMonth() + 1)).slice(-2);
   let day = ("0" + today.getDate()).slice(-2);
-  return year + "-" + month + "-" + day;
-};
+  let hours = ("0" + today.getHours()).slice(-2);
+  let minutes = ("0" + today.getMinutes()).slice(-2);
+  let seconds = ("0" + today.getSeconds()).slice(-2);
+  return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+}
 
 //신규 가입 User 추가 : DB Create
 export async function addUser(user, displayName) {
@@ -243,10 +254,6 @@ export async function updateArtwork(editArtwork) {
     ...editArtwork,
     title: editArtwork.title,
     description: editArtwork.description,
-    // productId: editArtwork.productId,
-    // uid: editArtwork.uid,
-    // url: editArtwork.url,
-    // liked: editArtwork.liked,
   }).catch((error) => {
     console.error(error);
   });
@@ -257,6 +264,36 @@ export async function removeProductDb(product) {
 }
 export async function removeLikedDb(userId, product) {
   return remove(ref(database, `liked/${userId}/${product.productId}`));
+}
+
+export async function getAllComment(productId) {
+  // console.log(productId);
+  return get(ref(database, `products/${productId}/comment`))
+    .then((snapshot) => {
+      if (snapshot.exists()) {
+        const comments = Object.values(snapshot.val());
+        return comments;
+      }
+      return [];
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+}
+
+//댓글 등록
+export async function addCommentTxt(product, comment) {
+  return set(ref(database, `products/${product.productId}/comment`), [...comment]).catch((error) => {
+    console.error(error);
+  });
+}
+
+//댓글 삭제
+export async function deleteCommentTxt(product, comments, commentId) {
+  return set(
+    ref(database, `products/${product.productId}/comment`),
+    comments.filter((obj) => obj.commentId !== commentId)
+  );
 }
 
 //---------------------구현 필요한 것들---------------------
