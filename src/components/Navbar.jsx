@@ -51,7 +51,7 @@ export default function Gnb() {
           {/* {!user && <Button text={"그림 올리기"} onClick={handleLogin}></Button>} */}
           {/* {user && <Button text={"로그아웃"} onClick={handleLogout}></Button>} */}
           {!user && (
-            <NavLink to="/Join" onClick={handleLocalNav}>
+            <NavLink to="/login" onClick={handleLocalNav}>
               <Button text={"로그인"}></Button>
             </NavLink>
           )}

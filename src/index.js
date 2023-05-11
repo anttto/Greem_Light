@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import ProductDetail from "./pages/ProductDetail";
 import Liked from "./pages/Liked";
 import Login from "./pages/Login";
+import Join from "./pages/Join";
 import AddProduct from "./pages/AddProduct";
 // import ProtectedRoute from "./pages/ProtectedRoute";
 
@@ -32,7 +33,8 @@ const router = createBrowserRouter([
       { path: "/artworks/:productId", element: <ProductDetail /> },
       { path: "/edit/:productId", element: <AddProduct /> },
       { path: "/liked", element: <Liked /> },
-      { path: "/Join", element: <Login /> },
+      { path: "/login", element: <Login /> },
+      { path: "/join", element: <Join /> },
     ],
   },
 ]);

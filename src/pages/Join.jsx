@@ -1,10 +1,10 @@
 import React from "react";
-import SignIn from "../components/SignIn";
+import SignUp from "../components/SignUp";
 
 export default function join() {
   return (
     <div className="content">
-      <SignIn />
+      <SignUp />
     </div>
   );
 }
