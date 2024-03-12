@@ -1,13 +1,13 @@
-import { initializeApp } from "firebase/app";
-import { getDatabase, ref, get, set, remove } from "firebase/database";
-import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
-import { v4 as uuid } from "uuid";
+import { initializeApp } from 'firebase/app';
+import { getDatabase, ref, get, set, remove } from 'firebase/database';
+import { getAuth, signOut, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { v4 as uuid } from 'uuid';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+    apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+    authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
+    projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -17,19 +17,19 @@ const database = getDatabase(app);
 
 //회원 가입
 export async function join(email, password, displayName) {
-  return createUserWithEmailAndPassword(auth, email, password)
-    .then((result) => {
-      const user = result.user;
-      return user;
-    })
-    .then((user) => {
-      // updateUser(displayName);
-      addUser(user, displayName); //가입 User DB 저장
-      return user;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+    return createUserWithEmailAndPassword(auth, email, password)
+        .then((result) => {
+            const user = result.user;
+            return user;
+        })
+        .then((user) => {
+            // updateUser(displayName);
+            addUser(user, displayName); //가입 User DB 저장
+            return user;
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 //유저 정보 업데이트 (displayName)
@@ -41,29 +41,29 @@ export async function join(email, password, displayName) {
 
 //로그인
 export async function login(email, password) {
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in
-      const user = userCredential.user;
-      window.location.replace("/");
-      return user;
-    })
-    .catch((error) => {
-      alert("먼저 회원 가입을 진행해주세요.");
-    });
+    signInWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            window.location.replace('/');
+            return user;
+        })
+        .catch((error) => {
+            alert('먼저 회원 가입을 진행해주세요.');
+        });
 }
 
 //로그아웃
 export async function logout() {
-  return signOut(auth).then(() => null);
+    return signOut(auth).then(() => null);
 }
 
 //유저 상태 체크
 export function onUserStateChange(callback) {
-  onAuthStateChanged(auth, async (user) => {
-    // updateUser("ss");
-    callback(user);
-  });
+    onAuthStateChanged(auth, async (user) => {
+        // updateUser("ss");
+        callback(user);
+    });
 }
 
 //가입 일자
@@ -76,224 +76,224 @@ export function onUserStateChange(callback) {
 // }
 
 export function joinTime() {
-  const today = new Date();
-  let year = today.getFullYear();
-  let month = ("0" + (today.getMonth() + 1)).slice(-2);
-  let day = ("0" + today.getDate()).slice(-2);
-  let hours = ("0" + today.getHours()).slice(-2);
-  let minutes = ("0" + today.getMinutes()).slice(-2);
-  let seconds = ("0" + today.getSeconds()).slice(-2);
-  return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
+    const today = new Date();
+    let year = today.getFullYear();
+    let month = ('0' + (today.getMonth() + 1)).slice(-2);
+    let day = ('0' + today.getDate()).slice(-2);
+    let hours = ('0' + today.getHours()).slice(-2);
+    let minutes = ('0' + today.getMinutes()).slice(-2);
+    let seconds = ('0' + today.getSeconds()).slice(-2);
+    return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
 }
 
 //신규 가입 User 추가 : DB Create
 export async function addUser(user, displayName) {
-  return set(ref(database, `Users/${user.uid}`), {
-    email: user.email,
-    joinDate: joinTime(),
-    displayName: displayName,
-    level: 1,
-  });
+    return set(ref(database, `Users/${user.uid}`), {
+        email: user.email,
+        joinDate: joinTime(),
+        displayName: displayName,
+        level: 1,
+    });
 }
 
 export async function getUser(userId) {
-  return get(ref(database, `Users/${userId}`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      const result = Object.values(snapshot.val());
-      return result;
-    }
-  });
+    return get(ref(database, `Users/${userId}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            const result = Object.values(snapshot.val());
+            return result;
+        }
+    });
 }
 
 //좋아요 한 제품 목록
 export async function getLiked(userId) {
-  return get(ref(database, `liked/${userId}`)).then((snapshot) => {
-    if (snapshot.exists()) {
-      const likedProducts = Object.values(snapshot.val());
-      return likedProducts;
-    }
-    return [];
-  });
+    return get(ref(database, `liked/${userId}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            const likedProducts = Object.values(snapshot.val());
+            return likedProducts;
+        }
+        return [];
+    });
 }
 
 export async function removeLikedProduct(userId, product) {
-  return remove(ref(database, `liked/${userId}/${product.productId}`));
+    return remove(ref(database, `liked/${userId}/${product.productId}`));
 }
 
 //좋아요 추가 : DB Create
 export async function addLikedProduct(userId, product) {
-  return set(ref(database, `liked/${userId}/${product.productId}`), {
-    productId: product.productId,
-  });
+    return set(ref(database, `liked/${userId}/${product.productId}`), {
+        productId: product.productId,
+    });
 }
 
 //좋아요 카운트 제어
 export async function updateLikeCount(likeCnt, product) {
-  return set(ref(database, `products/${product.productId}`), {
-    ...product,
-    productId: product.productId,
-    uid: product.uid,
-    title: product.title,
-    url: product.url,
-    description: product.description,
-    liked: likeCnt,
-  });
+    return set(ref(database, `products/${product.productId}`), {
+        ...product,
+        productId: product.productId,
+        uid: product.uid,
+        title: product.title,
+        url: product.url,
+        description: product.description,
+        liked: likeCnt,
+    });
 }
 
 export async function getDisplayName(userId) {
-  const snapshot = await get(ref(database, `Users/${userId}`));
-  if (snapshot.exists()) {
-    const value = Object.values(snapshot.val());
-    // console.log(value);
-    return value[0];
-  }
+    const snapshot = await get(ref(database, `Users/${userId}`));
+    if (snapshot.exists()) {
+        const value = Object.values(snapshot.val());
+        // console.log(value);
+        return value[0];
+    }
 }
 
 //내그림 읽어오기
 export async function getMyArtwork(userId) {
-  return get(ref(database, `products`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const arr = Object.values(snapshot.val());
-        const myArtworks = arr.filter((product) => product.uid === userId);
-        return myArtworks.reverse();
-      }
-      return [];
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    return get(ref(database, `products`))
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                const arr = Object.values(snapshot.val());
+                const myArtworks = arr.filter((product) => product.uid === userId);
+                return myArtworks.reverse();
+            }
+            return [];
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }
 
 //좋아요 클릭한 그림 읽어오기
 export async function getMyLikedArtwork(likedProduct = {}) {
-  const snapshot = await get(ref(database, `products`));
-  if (snapshot.exists()) {
-    const likedKey = Object.values(likedProduct);
-    const productArr = Object.values(snapshot.val());
-    const resultArr = findMatchingObjects(likedKey, productArr);
-    return resultArr;
-  } else {
-    return [];
-  }
+    const snapshot = await get(ref(database, `products`));
+    if (snapshot.exists()) {
+        const likedKey = Object.values(likedProduct);
+        const productArr = Object.values(snapshot.val());
+        const resultArr = findMatchingObjects(likedKey, productArr);
+        return resultArr;
+    } else {
+        return [];
+    }
 }
 
 //Liked 와 Products 의 배열 객체 비교 후 같은 것을 matchingObjects 배열에 담는 함수식
 function findMatchingObjects(arr1, arr2) {
-  const matchingObjects = [];
-  arr1.forEach((obj1) => {
-    arr2.forEach((obj2) => {
-      // 객체의 속성들이 모두 같은지 비교
-      const isSameObject = Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
-      // 같은 객체일 경우 matchingObjects 배열에 추가
-      if (isSameObject) {
-        matchingObjects.push(obj2);
-      }
+    const matchingObjects = [];
+    arr1.forEach((obj1) => {
+        arr2.forEach((obj2) => {
+            // 객체의 속성들이 모두 같은지 비교
+            const isSameObject = Object.keys(obj1).every((key) => obj1[key] === obj2[key]);
+            // 같은 객체일 경우 matchingObjects 배열에 추가
+            if (isSameObject) {
+                matchingObjects.push(obj2);
+            }
+        });
     });
-  });
-  return matchingObjects;
+    return matchingObjects;
 }
 
 //전체 그림 목록 읽기
 export async function getAllArtwork() {
-  return get(ref(database, `products`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const arr = Object.values(snapshot.val());
-        return shuffle(arr);
-      }
-      return [];
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    return get(ref(database, `products`))
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                const arr = Object.values(snapshot.val());
+                return shuffle(arr);
+            }
+            return [];
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }
 //전체 그림 목록 - 랜덤 배열 셔플
 function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+    for (let i = array.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
 }
 
 export async function selectArtwork(productId) {
-  return get(ref(database, `products`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const arr = Object.values(snapshot.val());
-        const selectArtwork = arr.filter((product) => product.productId === productId);
-        return selectArtwork[0];
-      }
-      return [];
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    return get(ref(database, `products`))
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                const arr = Object.values(snapshot.val());
+                const selectArtwork = arr.filter((product) => product.productId === productId);
+                return selectArtwork[0];
+            }
+            return [];
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }
 
 //그림 업로드
 export async function addNewArtwork(user, uid, product, imageUrl) {
-  const productId = uuid();
-  return set(ref(database, `products/${productId}`), {
-    ...product,
-    productId: productId,
-    uid: uid,
-    title: product.title,
-    url: imageUrl,
-    description: product.description,
-    liked: 0,
-    displayName: user.displayName,
-  }).catch((error) => {
-    console.error(error);
-  });
+    const productId = uuid();
+    return set(ref(database, `products/${productId}`), {
+        ...product,
+        productId: productId,
+        uid: uid,
+        title: product.title,
+        url: imageUrl,
+        description: product.description,
+        liked: 0,
+        displayName: user.displayName,
+    }).catch((error) => {
+        console.error(error);
+    });
 }
 
 export async function updateArtwork(editArtwork) {
-  return set(ref(database, `products/${editArtwork.productId}`), {
-    ...editArtwork,
-    title: editArtwork.title,
-    description: editArtwork.description,
-  }).catch((error) => {
-    console.error(error);
-  });
+    return set(ref(database, `products/${editArtwork.productId}`), {
+        ...editArtwork,
+        title: editArtwork.title,
+        description: editArtwork.description,
+    }).catch((error) => {
+        console.error(error);
+    });
 }
 
 export async function removeProductDb(product) {
-  return remove(ref(database, `products/${product.productId}`));
+    return remove(ref(database, `products/${product.productId}`));
 }
 export async function removeLikedDb(userId, product) {
-  return remove(ref(database, `liked/${userId}/${product.productId}`));
+    return remove(ref(database, `liked/${userId}/${product.productId}`));
 }
 
 export async function getAllComment(productId) {
-  // console.log(productId);
-  return get(ref(database, `products/${productId}/comment`))
-    .then((snapshot) => {
-      if (snapshot.exists()) {
-        const comments = Object.values(snapshot.val());
-        return comments;
-      }
-      return [];
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+    // console.log(productId);
+    return get(ref(database, `products/${productId}/comment`))
+        .then((snapshot) => {
+            if (snapshot.exists()) {
+                const comments = Object.values(snapshot.val());
+                return comments;
+            }
+            return [];
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }
 
 //댓글 등록
 export async function addCommentTxt(product, comment) {
-  return set(ref(database, `products/${product.productId}/comment`), [...comment]).catch((error) => {
-    console.error(error);
-  });
+    return set(ref(database, `products/${product.productId}/comment`), [...comment]).catch((error) => {
+        console.error(error);
+    });
 }
 
 //댓글 삭제
 export async function deleteCommentTxt(product, comments, commentId) {
-  return set(
-    ref(database, `products/${product.productId}/comment`),
-    comments.filter((obj) => obj.commentId !== commentId)
-  );
+    return set(
+        ref(database, `products/${product.productId}/comment`),
+        comments.filter((obj) => obj.commentId !== commentId)
+    );
 }
 
 //---------------------구현 필요한 것들---------------------
